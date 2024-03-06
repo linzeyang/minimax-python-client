@@ -1,0 +1,78 @@
+[project]
+name = "minimax-client"
+version = "0.1.0"
+description = "An (unofficial) python native client for easy interaction with MiniMax Open Platform"
+authors = [
+    {name = "Zeyang Lin", email = "4020306+linzeyang@users.noreply.github.com"},
+]
+dependencies = [
+    "httpx==0.27.0",
+]
+requires-python = ">=3.8"
+readme = "README.md"
+license = {text = "MIT"}
+keywords = ["web", "api", "llm"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Internet :: WWW/HTTP",
+    "Typing :: Typed"
+]
+
+[project.urls]
+Homepage = "https://github.com/linzeyang/minimax-python-client"
+Repository = "https://github.com/linzeyang/minimax-python-client"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+
+[tool.coverage.run]
+branch = true
+source = [ "./" ]
+
+[tool.coverage.report]
+omit = [ "test_*.py", "conftest.py" ]
+
+[tool.isort]
+py_version=310
+profile = "black"
+
+[tool.pylint.format]
+max-line-length = "88"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = [ "./" ]
+python_files = [ "test_*.py" ]
+console_output_style = "count"
+
+[tool.ruff]
+src = ["src"]
+line-length = 88
+target-version = "py310"
+output-format = "full"
+
+[tool.ruff.lint]
+select = ["B", "C", "E", "F", "I", "Q", "S", "W"]
+ignore = []
