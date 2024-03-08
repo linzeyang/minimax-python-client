@@ -48,6 +48,30 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
+#### Sync call with streaming
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+
+stream = client.chat.completions.create(
+    messages=[
+        {
+            "role": "user",
+            "content": "1 + 1 equals: ",
+        }
+    ],
+    stream=True,
+)
+
+
+for chunk in stream:
+    print(chunk.choices[0].delta.content if chunk.choices[0].delta else "", end="")
+```
+
 #### Async call
 
 ```python
@@ -69,6 +93,34 @@ async def demo():
     )
 
     print(response.choices[0].message.content)
+
+
+asyncio.run(demo())
+```
+
+#### Async call with streaming
+
+```python
+import asyncio
+
+from minimax_client import AsyncMiniMax
+
+
+async def demo():
+    client = AsyncMiniMax(api_key="<YOUR_API_KEY>")
+
+    stream = await client.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": "1 + 1 equals: ",
+            }
+        ],
+        stream=True,
+    )
+
+    async for chunk in stream:
+        print(chunk.choices[0].delta.content if chunk.choices[0].delta else "", end="")
 
 
 asyncio.run(demo())
