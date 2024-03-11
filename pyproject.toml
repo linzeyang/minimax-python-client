@@ -1,6 +1,6 @@
 [project]
 name = "minimax-client"
-version = "0.1.1"
+version = "0.1.2"
 description = "An (unofficial) python native client for easy interaction with MiniMax Open Platform"
 authors = [
     {name = "Zeyang Lin", email = "4020306+linzeyang@users.noreply.github.com"},

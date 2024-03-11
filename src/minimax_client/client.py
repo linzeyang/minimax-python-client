@@ -13,12 +13,32 @@ from pydantic import BaseModel
 BASE_URL = "https://api.minimax.chat/v1"
 
 
+class ChatCompletionChoiceMessageToolCallFunction(BaseModel):
+    """Chat Completion Choice Message ToolCall Function"""
+
+    name: str
+    arguments: str
+
+
+class ChatCompletionChoiceMessageToolCall(BaseModel):
+    """Chat Completion Choice Message ToolCall"""
+
+    id: str
+    type: str
+    function: ChatCompletionChoiceMessageToolCallFunction
+
+
 class ChatCompletionChoiceMessage(BaseModel):
+    """Chat Completion Choice Message"""
+
     role: str
-    content: str
+    content: Optional[str] = None
+    tool_calls: Optional[list[ChatCompletionChoiceMessageToolCall]] = None
 
 
 class ChatCompletionChoice(BaseModel):
+    """Chat Completion Choice"""
+
     index: int
     message: Optional[ChatCompletionChoiceMessage] = None
     delta: Optional[ChatCompletionChoiceMessage] = None
@@ -26,6 +46,8 @@ class ChatCompletionChoice(BaseModel):
 
 
 class ChatCompletionResponse(BaseModel):
+    """Chat Completion"""
+
     id: str
     choices: list[ChatCompletionChoice]
     created: int
@@ -54,7 +76,7 @@ class Completions:
         top_p: float = 0.95,
         stream: bool = False,
         tool_choice: str = "auto",
-        tools: Optional[list[dict[str, dict[str, str]]]] = None,
+        tools: Optional[list[dict[str, Union[str, dict[str, str]]]]] = None,
     ) -> Union[ChatCompletionResponse, Generator]:
         json_body = {
             "messages": messages,
@@ -118,7 +140,7 @@ class AsyncCompletions(Completions):
         top_p: float = 0.95,
         stream: bool = False,
         tool_choice: str = "auto",
-        tools: Optional[list[dict[str, dict[str, str]]]] = None,
+        tools: Optional[list[dict[str, Union[str, dict[str, str]]]]] = None,
     ) -> Union[ChatCompletionResponse, AsyncGenerator]:
         json_body = {
             "messages": messages,

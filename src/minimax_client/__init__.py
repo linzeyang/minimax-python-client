@@ -2,4 +2,4 @@
 
 from minimax_client.client import AsyncMiniMax, MiniMax
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"

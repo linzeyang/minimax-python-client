@@ -1,10 +1,11 @@
 # MiniMax Python Client
 
 [![PyPI version](https://img.shields.io/pypi/v/minimax-client.svg)](https://pypi.org/project/minimax-client/)
+[![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json)](https://pydantic.dev)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![pdm-managed](https://img.shields.io/badge/pdm-managed-blueviolet)](https://pdm-project.org)
-[![image](https://img.shields.io/pypi/l/minimax-client.svg)](https://pypi.org/project/minimax-client)
-[![image](https://img.shields.io/pypi/pyversions/minimax-client.svg)](https://pypi.org/project/minimax-client)
+[![License](https://img.shields.io/pypi/l/minimax-client.svg)](https://pypi.org/project/minimax-client)
+[![python-versions](https://img.shields.io/pypi/pyversions/minimax-client.svg)](https://pypi.org/project/minimax-client)
 
 An (unofficial) python native client for easy interaction with [MiniMax Open Platform](https://api.minimax.chat/)
 
@@ -18,15 +19,15 @@ The current implementation includes the following official API from MiniMax:
 
 ## Quick Start
 
-### Install the package
+### 1. Install the package
 
 ```bash
 pip install minimax-client
 ```
 
-### Import the package and invoke the client
+### 2. Import the package and invoke the client
 
-#### Sync call
+#### 2.1 Sync call
 
 ```python
 from minimax_client import MiniMax
@@ -48,7 +49,7 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-#### Sync call with streaming
+#### 2.2 Sync call with streaming
 
 ```python
 from minimax_client import MiniMax
@@ -61,7 +62,7 @@ stream = client.chat.completions.create(
     messages=[
         {
             "role": "user",
-            "content": "1 + 1 equals: ",
+            "content": "What is the term GPT short for?",
         }
     ],
     stream=True,
@@ -72,7 +73,67 @@ for chunk in stream:
     print(chunk.choices[0].delta.content if chunk.choices[0].delta else "", end="")
 ```
 
-#### Async call
+#### 2.3 Sync call with tools, stream enabled
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+
+stream = client.chat.completions.create(
+    model="abab5.5-chat",
+    messages=[
+        {
+            "role": "system",
+            "content": "You are a helpful assistant",
+        },
+        {
+            "role": "user",
+            "content": "What's the weather like in Log Angeles right now?",
+        },
+        {
+            "role": "assistant",
+            "tool_calls": [
+                {
+                    "id": "call_function_2936815621",
+                    "type": "function",
+                    "function": {
+                        "name": "get_current_weather",
+                        "arguments": '{"location": "LogAngeles"}',
+                    },
+                }
+            ],
+        },
+        {
+            "role": "tool",
+            "tool_call_id": "call_function_2936815621",
+            "content": "LogAngeles / Sunny / 51°F / Wind: East 5 mph",
+        },
+    ],
+    stream=True,
+    tool_choice="auto",
+    tools=[
+        {
+            "type": "function",
+            "function": {
+                "name": "get_current_weather",
+                "description": "Retrieve the current weather of given location",
+                "parameters": '{"type": "object", "properties": {"location": {"type": "string", "description": "Name of a city, eg. Paris, London"}}, "required": ["location"]}',
+            },
+        }
+    ],
+)
+
+for chunk in stream:
+    print(chunk.choices[0].delta.content if chunk.choices[0].delta else "", end="")
+
+# It's currently sunny in Log Angeles, with a temperature of 51°F and wind from the east at 5 mph.
+```
+
+
+#### 2.4 Async call
 
 ```python
 import asyncio
@@ -98,7 +159,7 @@ async def demo():
 asyncio.run(demo())
 ```
 
-#### Async call with streaming
+#### 2.5 Async call with streaming
 
 ```python
 import asyncio
@@ -113,7 +174,7 @@ async def demo():
         messages=[
             {
                 "role": "user",
-                "content": "1 + 1 equals: ",
+                "content": "What is the term GPT short for?",
             }
         ],
         stream=True,
