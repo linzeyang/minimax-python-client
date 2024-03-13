@@ -1,6 +1,5 @@
 [project]
 name = "minimax-client"
-version = "0.1.2"
 description = "An (unofficial) python native client for easy interaction with MiniMax Open Platform"
 authors = [
     {name = "Zeyang Lin", email = "4020306+linzeyang@users.noreply.github.com"},
@@ -16,6 +15,7 @@ license = {text = "MIT"}
 keywords = ["web", "api", "llm"]
 classifiers = [
     "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
     "Intended Audience :: Developers",
     "Natural Language :: English",
     "Operating System :: Microsoft :: Windows",
@@ -32,6 +32,12 @@ classifiers = [
     "Topic :: Internet :: WWW/HTTP",
     "Typing :: Typed"
 ]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.1.1,<9",
+]
 
 [project.urls]
 Homepage = "https://github.com/linzeyang/minimax-python-client"
@@ -43,6 +49,7 @@ build-backend = "pdm.backend"
 
 
 [tool.pdm]
+version = { source = "file", path = "src/minimax_client/__version__.py" }
 distribution = true
 
 [tool.black]
