@@ -2,7 +2,7 @@
 
 import json
 from http import HTTPStatus
-from typing import Any, AsyncGenerator, Generator, Optional, Union
+from typing import Any, AsyncGenerator, Dict, Generator, List, Optional, Union
 
 import httpx
 
@@ -21,14 +21,14 @@ class Completions:
     def create(
         self,
         *,
-        messages: list[dict[str, Union[str, list[dict[str, Any]]]]],
+        messages: List[Dict[str, Union[str, List[Dict[str, Any]]]]],
         model: str = "abab5.5s-chat",
         max_tokens: int = 256,
         temperature: float = 0.9,
         top_p: float = 0.95,
         stream: bool = False,
         tool_choice: str = "auto",
-        tools: Optional[list[dict[str, Union[str, dict[str, str]]]]] = None,
+        tools: Optional[List[Dict[str, Union[str, Dict[str, str]]]]] = None,
     ) -> Union[ResponseEntity, Generator[ResponseEntity, None, None]]:
         """
         Create a new chat completion request.
@@ -100,7 +100,7 @@ class Completions:
         return chat_response
 
     def _build_stream_response(
-        self, json_body: dict
+        self, json_body: Dict[str, Any]
     ) -> Generator[ResponseEntity, None, None]:
         """
         Builds a stream of Chat Completion responses from an HTTP response
@@ -138,14 +138,14 @@ class AsyncCompletions(Completions):
     async def create(
         self,
         *,
-        messages: list[dict[str, Union[str, list[dict[str, Any]]]]],
+        messages: List[Dict[str, Union[str, List[Dict[str, Any]]]]],
         model: str = "abab5.5s-chat",
         max_tokens: int = 256,
         temperature: float = 0.9,
         top_p: float = 0.95,
         stream: bool = False,
         tool_choice: str = "auto",
-        tools: Optional[list[dict[str, Union[str, dict[str, str]]]]] = None,
+        tools: Optional[List[Dict[str, Union[str, Dict[str, str]]]]] = None,
     ) -> Union[ResponseEntity, AsyncGenerator[ResponseEntity, None]]:
         """
         Create a new chat completion for the given messages.
@@ -190,7 +190,7 @@ class AsyncCompletions(Completions):
         return self._build_stream_response(json_body=json_body)
 
     async def _build_stream_response(
-        self, json_body: dict
+        self, json_body: Dict[str, Any]
     ) -> AsyncGenerator[ResponseEntity, None]:
         """
         Builds a stream of Chat Completion responses from an HTTP response

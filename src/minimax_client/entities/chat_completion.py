@@ -1,8 +1,10 @@
 """chat_completion.py"""
 
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel
+
+from minimax_client.entities.common import BaseResp
 
 
 class ChoiceMessageToolCallFunction(BaseModel):
@@ -25,7 +27,7 @@ class ChoiceMessage(BaseModel):
 
     role: str
     content: Optional[str] = None
-    tool_calls: Optional[list[ChoiceMessageToolCall]] = None
+    tool_calls: Optional[List[ChoiceMessageToolCall]] = None
 
 
 class Choice(BaseModel):
@@ -43,18 +45,11 @@ class Usage(BaseModel):
     total_tokens: int
 
 
-class BaseResp(BaseModel):
-    """Chat Completion Response Base Response"""
-
-    status_code: int
-    status_msg: str
-
-
 class Response(BaseModel):
     """Chat Completion Response"""
 
     id: str
-    choices: list[Choice]
+    choices: List[Choice]
     created: int
     model: str
     object: str

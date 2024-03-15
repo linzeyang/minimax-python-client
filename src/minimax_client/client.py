@@ -2,11 +2,13 @@
 
 import asyncio
 import os
+from typing import Optional
 
 import httpx
 from dotenv import find_dotenv, load_dotenv
 
 from minimax_client.interfaces.chat_completion import AsyncChat, Chat
+from minimax_client.interfaces.embedding import AsyncEmbedding, Embedding
 
 BASE_URL = "https://api.minimax.chat/v1"
 
@@ -15,12 +17,19 @@ class BaseMiniMaxClient:
     """MiniMax client base class"""
 
     api_key: str
+    group_id: str
 
-    def __init__(self, api_key: str | None = None) -> None:
+    def __init__(
+        self, api_key: Optional[str] = None, group_id: Optional[str] = None
+    ) -> None:
         if not api_key:
             api_key = self._get_api_key_from_env()
 
+        if not group_id:
+            group_id = os.getenv("MINIMAX_GROUP_ID", "")
+
         self.api_key = api_key
+        self.group_id = group_id
         self.http_client = self._get_http_client()
 
     def _get_api_key_from_env(self) -> str:
@@ -59,10 +68,12 @@ class MiniMax(BaseMiniMaxClient):
 
     http_client: httpx.Client
     chat: Chat
+    embeddings: Embedding
 
-    def __init__(self, api_key: str | None = None) -> None:
+    def __init__(self, api_key: Optional[str] = None) -> None:
         super().__init__(api_key=api_key)
         self.chat = Chat(http_client=self.http_client)
+        self.embeddings = Embedding(http_client=self.http_client)
 
     def __del__(self) -> None:
         """Closes the HTTP client if it is not already closed."""
@@ -90,10 +101,12 @@ class AsyncMiniMax(BaseMiniMaxClient):
 
     http_client: httpx.AsyncClient
     chat: AsyncChat
+    embeddings: AsyncEmbedding
 
-    def __init__(self, api_key: str | None = None) -> None:
+    def __init__(self, api_key: Optional[str] = None) -> None:
         super().__init__(api_key=api_key)
         self.chat = AsyncChat(http_client=self.http_client)
+        self.embeddings = AsyncEmbedding(http_client=self.http_client)
 
     def __del__(self) -> None:
         async def __del_client() -> None:
