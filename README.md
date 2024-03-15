@@ -9,8 +9,9 @@
 
 An (unofficial) python native client for easy interaction with [MiniMax Open Platform](https://api.minimax.chat/)
 
-The current implementation includes the following official API from MiniMax:
+The current implementation includes the following official APIs from MiniMax:
 - ChatCompletion v2
+- Embeddings
 
 ## Prerequisites
 - Python >= 3.8
@@ -182,6 +183,47 @@ async def demo():
 
     async for chunk in stream:
         print(chunk.choices[0].delta.content if chunk.choices[0].delta else "", end="")
+
+
+asyncio.run(demo())
+```
+
+#### 2.6 Sync call for embeddings
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+
+response = client.embeddings.create(
+    input=["Hello world!", "Nice to meet you!"],
+    target="db",
+)
+
+print(response.vectors[0][:10])
+print(response.vectors[1][:10])
+```
+
+#### 2.7 Async call for embeddings
+
+```python
+import asyncio
+
+from minimax_client import AsyncMiniMax
+
+
+async def demo():
+    client = AsyncMiniMax(api_key="<YOUR_API_KEY>")
+
+    response = await client.embeddings.create(
+        input=["Hello async world!", "Nice to meet you async!"],
+        target="query",
+    )
+
+    print(response.vectors[0][:10])
+    print(response.vectors[1][:10])
 
 
 asyncio.run(demo())
