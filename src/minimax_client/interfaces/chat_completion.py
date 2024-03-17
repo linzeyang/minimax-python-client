@@ -7,16 +7,13 @@ from typing import Any, AsyncGenerator, Dict, Generator, List, Optional, Union
 import httpx
 
 from minimax_client.entities.chat_completion import Response as ResponseEntity
+from minimax_client.interfaces.base import BaseAsyncInterface, BaseSyncInterface
 
 
-class Completions:
+class Completions(BaseSyncInterface):
     """Chat completions interface"""
 
-    client: httpx.Client
     url_path: str = "text/chatcompletion_v2"
-
-    def __init__(self, http_client: httpx.Client) -> None:
-        self.client = http_client
 
     def create(
         self,
@@ -127,13 +124,8 @@ class Completions:
                     break
 
 
-class AsyncCompletions(Completions):
+class AsyncCompletions(BaseAsyncInterface, Completions):
     """Async chat completions interface"""
-
-    client: httpx.AsyncClient
-
-    def __init__(self, http_client: httpx.AsyncClient) -> None:
-        self.client = http_client
 
     async def create(
         self,
@@ -231,7 +223,7 @@ class Chat:
             http_client (httpx.Client): The HTTP client to use
         """
         self.client = http_client
-        self.completions = Completions(self.client)
+        self.completions = Completions(http_client=self.client)
 
 
 class AsyncChat:
@@ -248,4 +240,4 @@ class AsyncChat:
             http_client (httpx.AsyncClient): The HTTP client to use
         """
         self.client = http_client
-        self.completions = AsyncCompletions(self.client)
+        self.completions = AsyncCompletions(http_client=self.client)

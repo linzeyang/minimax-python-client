@@ -4,7 +4,20 @@ from pydantic import BaseModel
 
 
 class BaseResp(BaseModel):
-    """Base Response"""
+    """Base Response
+
+    status_code:
+        1000: Unknown Error
+        1001: Timeout
+        1002: RPM limit reached
+        1004: Authorization Failure
+        1008: Balance Insufficient
+        1013: Internal Service Error
+        1026: Input incorrect
+        1027: Output incorrect
+        1039: TPM limit reached
+        2013: Input format info incorrect
+    """
 
     status_code: int
     status_msg: str

@@ -6,16 +6,13 @@ from typing import List, Union
 import httpx
 
 from minimax_client.entities.embedding import Response as ResponseEntity
+from minimax_client.interfaces.base import BaseAsyncInterface, BaseSyncInterface
 
 
-class Embedding:
+class Embedding(BaseSyncInterface):
     """Embedding interface"""
 
-    client: httpx.Client
     url_path: str = "embeddings"
-
-    def __init__(self, http_client: httpx.Client) -> None:
-        self.client = http_client
 
     def create(
         self,
@@ -70,13 +67,10 @@ class Embedding:
         return response_entity
 
 
-class AsyncEmbedding(Embedding):
+class AsyncEmbedding(BaseAsyncInterface, Embedding):
     """Asynchronous Embedding interface"""
 
     client: httpx.AsyncClient
-
-    def __init__(self, http_client: httpx.AsyncClient) -> None:
-        self.client = http_client
 
     async def create(
         self,
