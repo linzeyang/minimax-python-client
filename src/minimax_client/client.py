@@ -9,6 +9,7 @@ from dotenv import find_dotenv, load_dotenv
 
 from minimax_client.interfaces.chat_completion import AsyncChat, Chat
 from minimax_client.interfaces.embedding import AsyncEmbedding, Embedding
+from minimax_client.interfaces.file import AsyncFiles, Files
 
 BASE_URL = "https://api.minimax.chat/v1"
 
@@ -69,11 +70,13 @@ class MiniMax(BaseMiniMaxClient):
     http_client: httpx.Client
     chat: Chat
     embeddings: Embedding
+    files: Files
 
     def __init__(self, api_key: Optional[str] = None) -> None:
         super().__init__(api_key=api_key)
         self.chat = Chat(http_client=self.http_client)
         self.embeddings = Embedding(http_client=self.http_client)
+        self.files = Files(http_client=self.http_client)
 
     def __del__(self) -> None:
         """Closes the HTTP client if it is not already closed."""
@@ -102,11 +105,13 @@ class AsyncMiniMax(BaseMiniMaxClient):
     http_client: httpx.AsyncClient
     chat: AsyncChat
     embeddings: AsyncEmbedding
+    files: AsyncFiles
 
     def __init__(self, api_key: Optional[str] = None) -> None:
         super().__init__(api_key=api_key)
         self.chat = AsyncChat(http_client=self.http_client)
         self.embeddings = AsyncEmbedding(http_client=self.http_client)
+        self.files = AsyncFiles(http_client=self.http_client)
 
     def __del__(self) -> None:
         async def __del_client() -> None:

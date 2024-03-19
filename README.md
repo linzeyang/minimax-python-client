@@ -12,6 +12,7 @@ An (unofficial) python native client for easy interaction with [MiniMax Open Pla
 The current implementation includes the following official APIs from MiniMax:
 - ChatCompletion v2
 - Embeddings
+- File
 
 ## Prerequisites
 - Python >= 3.8
@@ -225,6 +226,54 @@ async def demo():
     print(response.vectors[0][:10])
     print(response.vectors[1][:10])
 
+
+asyncio.run(demo())
+```
+
+#### 2.8 Sync call for files
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+
+resp = client.files.create(filepath="sample.txt", purpose="retrieval")
+print(resp.file.file_id)
+
+resp = client.files.list(purpose="retrieval")
+print(resp.files[0].file_id)
+
+resp = client.files.retrieve(file_id=resp.files[0].file_id)
+print(resp.file.bytes)
+
+resp = client.files.delete(file_id=resp.file.file_id)
+print(resp.file_id)
+```
+
+#### 2.9 Async call for files
+
+```python
+import asyncio
+
+from minimax_client import AsyncMiniMax
+
+
+async def demo():
+    client = AsyncMiniMax(api_key="<YOUR_API_KEY>")
+
+    resp = await client.files.create(filepath="sample.txt", purpose="retrieval")
+    print(resp.file.file_id)
+
+    resp = await client.files.list(purpose="retrieval")
+    print(resp.files[0].file_id)
+
+    resp = await client.files.retrieve(file_id=resp.files[0].file_id)
+    print(resp.file.bytes)
+
+    resp = await client.files.delete(file_id=resp.file.file_id)
+    print(resp.file_id)
 
 asyncio.run(demo())
 ```
