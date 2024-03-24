@@ -6,17 +6,19 @@
 [![pdm-managed](https://img.shields.io/badge/pdm-managed-blueviolet)](https://pdm-project.org)
 [![License](https://img.shields.io/pypi/l/minimax-client.svg)](https://pypi.org/project/minimax-client)
 [![python-versions](https://img.shields.io/pypi/pyversions/minimax-client.svg)](https://pypi.org/project/minimax-client)
+[![Main Workflow](https://github.com/linzeyang/minimax-python-client/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/linzeyang/minimax-python-client/actions/workflows/main.yml)
 
 An (unofficial) python native client for easy interaction with [MiniMax Open Platform](https://api.minimax.chat/)
 
-The current implementation includes the following official APIs from MiniMax:
+The current implementation includes the following official APIs offered by MiniMax:
 - ChatCompletion v2
 - Embeddings
 - File
 
 ## Prerequisites
 - Python >= 3.8
-- pip
+- pip (or any other tool that does the same job)
+- Internet connection
 - An API KEY acquired from [MiniMax Open Platform](https://api.minimax.chat/user-center/basic-information/interface-key)
 
 ## Quick Start

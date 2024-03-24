@@ -2,7 +2,7 @@
 
 from typing import List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, NonNegativeInt
 
 from minimax_client.entities.common import BaseResp
 
@@ -33,7 +33,7 @@ class ChoiceMessage(BaseModel):
 class Choice(BaseModel):
     """Chat Completion Choice"""
 
-    index: int
+    index: NonNegativeInt
     message: Optional[ChoiceMessage] = None
     delta: Optional[ChoiceMessage] = None
     finish_reason: Optional[str] = None
@@ -42,10 +42,10 @@ class Choice(BaseModel):
 class Usage(BaseModel):
     """Chat Completion Response Usage"""
 
-    total_tokens: int
+    total_tokens: NonNegativeInt
 
 
-class Response(BaseModel):
+class ChatCompletionResponse(BaseModel):
     """Chat Completion Response"""
 
     id: str

@@ -1,6 +1,6 @@
 """common.py"""
 
-from pydantic import BaseModel
+from pydantic import BaseModel, NonNegativeInt
 
 
 class BaseResp(BaseModel):
@@ -19,5 +19,5 @@ class BaseResp(BaseModel):
         2013: Input format info incorrect
     """
 
-    status_code: int
+    status_code: NonNegativeInt
     status_msg: str

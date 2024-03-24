@@ -14,7 +14,7 @@ from minimax_client.interfaces.base import BaseAsyncInterface, BaseSyncInterface
 
 
 class Files(BaseSyncInterface):
-    """Files interface"""
+    """Synchronous Files interface"""
 
     url_path: str = "files"
 

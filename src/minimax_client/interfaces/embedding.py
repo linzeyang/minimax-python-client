@@ -5,12 +5,12 @@ from typing import List, Union
 
 import httpx
 
-from minimax_client.entities.embedding import Response as ResponseEntity
+from minimax_client.entities.embedding import EmbeddingResponse
 from minimax_client.interfaces.base import BaseAsyncInterface, BaseSyncInterface
 
 
 class Embedding(BaseSyncInterface):
-    """Embedding interface"""
+    """Synchronous Embedding interface"""
 
     url_path: str = "embeddings"
 
@@ -20,7 +20,7 @@ class Embedding(BaseSyncInterface):
         input: Union[str, List[str]],
         model: str = "embo-01",
         target: str = "db",
-    ) -> ResponseEntity:
+    ) -> EmbeddingResponse:
         """
         Create embeddings for the given input text(s).
 
@@ -32,7 +32,7 @@ class Embedding(BaseSyncInterface):
                 Can be either "db" or "query". Defaults to "db".
 
         Returns:
-            ResponseEntity: The response from the API.
+            EmbeddingResponse: The response from the API.
         """
         if isinstance(input, str):
             input = [input]
@@ -43,7 +43,7 @@ class Embedding(BaseSyncInterface):
 
         return self._build_response(resp=resp)
 
-    def _build_response(self, resp: httpx.Response) -> ResponseEntity:
+    def _build_response(self, resp: httpx.Response) -> EmbeddingResponse:
         """
         Builds an Embeddings response from an HTTP response
 
@@ -54,13 +54,13 @@ class Embedding(BaseSyncInterface):
             Exception: If the HTTP response is not OK or if parsing the response fails
 
         Returns:
-            ResponseEntity: The Embeddings response
+            EmbeddingResponse: The response from the API
         """
         if resp.status_code != HTTPStatus.OK:
             raise Exception(f"status: {resp.status_code}; {resp.text}")
 
         try:
-            response_entity = ResponseEntity(**resp.json())
+            response_entity = EmbeddingResponse(**resp.json())
         except Exception as e:
             raise Exception(f"Failed to parse response: {e}")  # noqa: B904
 
@@ -78,7 +78,7 @@ class AsyncEmbedding(BaseAsyncInterface, Embedding):
         input: Union[str, List[str]],
         model: str = "embo-01",
         target: str = "db",
-    ) -> ResponseEntity:
+    ) -> EmbeddingResponse:
         """
         Create embeddings for the given input text(s).
 
@@ -90,7 +90,7 @@ class AsyncEmbedding(BaseAsyncInterface, Embedding):
                 Can be either "db" or "query". Defaults to "db".
 
         Returns:
-            ResponseEntity: The response from the API.
+            EmbeddingResponse: The response from the API.
         """
         if isinstance(input, str):
             input = [input]

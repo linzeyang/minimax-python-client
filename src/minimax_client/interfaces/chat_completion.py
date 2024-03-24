@@ -6,12 +6,12 @@ from typing import Any, AsyncGenerator, Dict, Generator, List, Optional, Union
 
 import httpx
 
-from minimax_client.entities.chat_completion import Response as ResponseEntity
+from minimax_client.entities.chat_completion import ChatCompletionResponse
 from minimax_client.interfaces.base import BaseAsyncInterface, BaseSyncInterface
 
 
-class Completions(BaseSyncInterface):
-    """Chat completions interface"""
+class ChatCompletions(BaseSyncInterface):
+    """Synchronous Chat Completions interface"""
 
     url_path: str = "text/chatcompletion_v2"
 
@@ -26,7 +26,7 @@ class Completions(BaseSyncInterface):
         stream: bool = False,
         tool_choice: str = "auto",
         tools: Optional[List[Dict[str, Union[str, Dict[str, str]]]]] = None,
-    ) -> Union[ResponseEntity, Generator[ResponseEntity, None, None]]:
+    ) -> Union[ChatCompletionResponse, Generator[ChatCompletionResponse, None, None]]:
         """
         Create a new chat completion request.
 
@@ -53,8 +53,8 @@ class Completions(BaseSyncInterface):
                 The tools to use. Defaults to None.
 
         Returns:
-            Union[ResponseEntity, Generator[ResponseEntity, None, None]]:
-                The response or a generator of responses
+            ChatCompletionResponse | Generator[ChatCompletionResponse, None, None]:
+                The response from the API or a generator of responses
         """
         json_body = {
             "messages": messages,
@@ -73,7 +73,7 @@ class Completions(BaseSyncInterface):
 
         return self._build_stream_response(json_body=json_body)
 
-    def _build_response(self, resp: httpx.Response) -> ResponseEntity:
+    def _build_response(self, resp: httpx.Response) -> ChatCompletionResponse:
         """
         Builds a Chat Completion response from an HTTP response
 
@@ -84,13 +84,13 @@ class Completions(BaseSyncInterface):
             Exception: If the HTTP response is not OK or if parsing the response fails
 
         Returns:
-            ResponseEntity: The Chat Completion response
+            ChatCompletionResponse: The response from the API
         """
         if resp.status_code != HTTPStatus.OK:
             raise Exception(f"status: {resp.status_code}; {resp.text}")
 
         try:
-            chat_response = ResponseEntity(**resp.json())
+            chat_response = ChatCompletionResponse(**resp.json())
         except Exception as e:
             raise Exception(f"Failed to parse response: {e}")  # noqa: B904
 
@@ -98,7 +98,7 @@ class Completions(BaseSyncInterface):
 
     def _build_stream_response(
         self, json_body: Dict[str, Any]
-    ) -> Generator[ResponseEntity, None, None]:
+    ) -> Generator[ChatCompletionResponse, None, None]:
         """
         Builds a stream of Chat Completion responses from an HTTP response
 
@@ -106,7 +106,7 @@ class Completions(BaseSyncInterface):
             json_body (dict): The JSON body of the request
 
         Yields:
-            ResponseEntity: A Chat Completion response
+            ChatCompletionResponse: The response from the API
         """
         with self.client.stream(
             method="post", url=self.url_path, json=json_body
@@ -117,15 +117,15 @@ class Completions(BaseSyncInterface):
             for data in resp.iter_text():
                 json_body = json.loads(data.split("data: ", 2)[1])
 
-                yield ResponseEntity(**json_body)
+                yield ChatCompletionResponse(**json_body)
 
                 # If the stream is finished, break out of the loop
                 if "finish_reason" in json_body["choices"][0]:
                     break
 
 
-class AsyncCompletions(BaseAsyncInterface, Completions):
-    """Async chat completions interface"""
+class AsyncChatCompletions(BaseAsyncInterface, ChatCompletions):
+    """Asynchronous Chat Completions interface"""
 
     async def create(
         self,
@@ -138,7 +138,7 @@ class AsyncCompletions(BaseAsyncInterface, Completions):
         stream: bool = False,
         tool_choice: str = "auto",
         tools: Optional[List[Dict[str, Union[str, Dict[str, str]]]]] = None,
-    ) -> Union[ResponseEntity, AsyncGenerator[ResponseEntity, None]]:
+    ) -> Union[ChatCompletionResponse, AsyncGenerator[ChatCompletionResponse, None]]:
         """
         Create a new chat completion for the given messages.
 
@@ -161,8 +161,8 @@ class AsyncCompletions(BaseAsyncInterface, Completions):
                 The tools to use. Defaults to None.
 
         Returns:
-            Union[ResponseEntity, AsyncGenerator[ResponseEntity, None]]:
-                The response or a generator of responses
+            ChatCompletionResponse | AsyncGenerator[ChatCompletionResponse, None]:
+                The response from the API or a generator of responses
         """
         json_body = {
             "messages": messages,
@@ -183,7 +183,7 @@ class AsyncCompletions(BaseAsyncInterface, Completions):
 
     async def _build_stream_response(
         self, json_body: Dict[str, Any]
-    ) -> AsyncGenerator[ResponseEntity, None]:
+    ) -> AsyncGenerator[ChatCompletionResponse, None]:
         """
         Builds a stream of Chat Completion responses from an HTTP response
 
@@ -191,7 +191,7 @@ class AsyncCompletions(BaseAsyncInterface, Completions):
             json_body (dict): The JSON body of the request
 
         Yields:
-            ResponseEntity: A Chat Completion response
+            ChatCompletionResponse: The response from the API
         """
         async with self.client.stream(
             method="post", url=self.url_path, json=json_body
@@ -202,7 +202,7 @@ class AsyncCompletions(BaseAsyncInterface, Completions):
             async for data in resp.aiter_text():
                 json_body = json.loads(data.split("data: ", 2)[1])
 
-                yield ResponseEntity(**json_body)
+                yield ChatCompletionResponse(**json_body)
 
                 # If the stream is finished, break out of the loop
                 if "finish_reason" in json_body["choices"][0]:
@@ -212,8 +212,7 @@ class AsyncCompletions(BaseAsyncInterface, Completions):
 class Chat:
     """Synchronous Chat interface"""
 
-    client: httpx.Client
-    completions: Completions
+    completions: ChatCompletions
 
     def __init__(self, http_client: httpx.Client) -> None:
         """
@@ -222,15 +221,13 @@ class Chat:
         Args:
             http_client (httpx.Client): The HTTP client to use
         """
-        self.client = http_client
-        self.completions = Completions(http_client=self.client)
+        self.completions = ChatCompletions(http_client=http_client)
 
 
 class AsyncChat:
     """Asynchronous Chat interface"""
 
-    client: httpx.AsyncClient
-    completions: AsyncCompletions
+    completions: AsyncChatCompletions
 
     def __init__(self, http_client: httpx.AsyncClient) -> None:
         """
@@ -239,5 +236,4 @@ class AsyncChat:
         Args:
             http_client (httpx.AsyncClient): The HTTP client to use
         """
-        self.client = http_client
-        self.completions = AsyncCompletions(http_client=self.client)
+        self.completions = AsyncChatCompletions(http_client=http_client)

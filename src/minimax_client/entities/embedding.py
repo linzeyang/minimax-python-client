@@ -2,14 +2,14 @@
 
 from typing import List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, NonNegativeInt
 
 from minimax_client.entities.common import BaseResp
 
 
-class Response(BaseModel):
+class EmbeddingResponse(BaseModel):
     """Embeddings Response"""
 
     vectors: List[List[float]]
-    total_tokens: int
+    total_tokens: NonNegativeInt
     base_resp: BaseResp

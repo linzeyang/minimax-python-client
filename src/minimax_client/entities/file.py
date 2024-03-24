@@ -2,7 +2,7 @@
 
 from typing import List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, NonNegativeInt
 
 from minimax_client.entities.common import BaseResp
 
@@ -19,8 +19,8 @@ class File(BaseModel):
         role-recognition -> json, txt(with json content)
     """
 
-    file_id: int
-    bytes: int
+    file_id: NonNegativeInt
+    bytes: NonNegativeInt
     created_at: int
     filename: str
     purpose: str
@@ -58,5 +58,5 @@ class FileRetrieveContentResponse(BaseModel):
 class FileDeleteResponse(BaseModel):
     """File Delete Response"""
 
-    file_id: int
+    file_id: NonNegativeInt
     base_resp: BaseResp
