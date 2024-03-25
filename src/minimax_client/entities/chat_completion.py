@@ -1,6 +1,6 @@
 """chat_completion.py"""
 
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pydantic import BaseModel, NonNegativeInt
 
@@ -18,14 +18,14 @@ class ChoiceMessageToolCall(BaseModel):
     """Chat Completion Choice Message ToolCall"""
 
     id: str
-    type: str
+    type: Literal["function"]
     function: ChoiceMessageToolCallFunction
 
 
 class ChoiceMessage(BaseModel):
     """Chat Completion Choice Message"""
 
-    role: str
+    role: Literal["assistant", "user", "system", "tool"]
     content: Optional[str] = None
     tool_calls: Optional[List[ChoiceMessageToolCall]] = None
 
@@ -36,7 +36,7 @@ class Choice(BaseModel):
     index: NonNegativeInt
     message: Optional[ChoiceMessage] = None
     delta: Optional[ChoiceMessage] = None
-    finish_reason: Optional[str] = None
+    finish_reason: Optional[Literal["length", "stop", "tool_calls"]] = None
 
 
 class Usage(BaseModel):
@@ -51,7 +51,7 @@ class ChatCompletionResponse(BaseModel):
     id: str
     choices: List[Choice]
     created: int
-    model: str
-    object: str
+    model: Literal["abab5.5s-chat", "abab5.5-chat", "abab6-chat"]
+    object: Literal["chat.completion", "chat.completion.chunk"]
     usage: Optional[Usage] = None
     base_resp: Optional[BaseResp] = None

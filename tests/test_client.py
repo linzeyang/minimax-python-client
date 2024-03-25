@@ -42,7 +42,7 @@ class TestAsyncMiniMax(unittest.IsolatedAsyncioTestCase):
         async_minimax = AsyncMiniMax(api_key=api_key)
         self.assertEqual(async_minimax.api_key, api_key)
         self.assertIsInstance(async_minimax.chat, AsyncChat)
-        self.assertIs(async_minimax.chat.client, async_minimax.http_client)
+        self.assertIs(async_minimax.chat.completions.client, async_minimax.http_client)
 
     async def test_del_closes_http_client(self) -> None:
         """Test that the __del__ method closes the HTTP client"""
