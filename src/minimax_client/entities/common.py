@@ -21,3 +21,9 @@ class BaseResp(BaseModel):
 
     status_code: NonNegativeInt
     status_msg: str
+
+
+class BareResponse(BaseModel):
+    """Bare Response with only 'base_resp'"""
+
+    base_resp: BaseResp
