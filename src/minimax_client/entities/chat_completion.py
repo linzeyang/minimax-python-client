@@ -4,7 +4,7 @@ from typing import List, Literal, Optional
 
 from pydantic import BaseModel, NonNegativeInt
 
-from minimax_client.entities.common import BaseResp
+from minimax_client.entities.common import BareResponse
 
 
 class ChoiceMessageToolCallFunction(BaseModel):
@@ -45,7 +45,7 @@ class Usage(BaseModel):
     total_tokens: NonNegativeInt
 
 
-class ChatCompletionResponse(BaseModel):
+class ChatCompletionResponse(BareResponse):
     """Chat Completion Response"""
 
     id: str
@@ -54,4 +54,3 @@ class ChatCompletionResponse(BaseModel):
     model: Literal["abab5.5s-chat", "abab5.5-chat", "abab6-chat"]
     object: Literal["chat.completion", "chat.completion.chunk"]
     usage: Optional[Usage] = None
-    base_resp: Optional[BaseResp] = None

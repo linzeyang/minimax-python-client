@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, NonNegativeInt
 
-from minimax_client.entities.common import BaseResp
+from minimax_client.entities.common import BareResponse
 
 
 class File(BaseModel):
@@ -27,36 +27,31 @@ class File(BaseModel):
     download_url: Optional[str] = None
 
 
-class FileCreateResponse(BaseModel):
+class FileCreateResponse(BareResponse):
     """File Create Response"""
 
     file: File
-    base_resp: BaseResp
 
 
-class FileListResponse(BaseModel):
+class FileListResponse(BareResponse):
     """File List Response"""
 
     files: List[File]
-    base_resp: BaseResp
 
 
-class FileRetriveResponse(BaseModel):
+class FileRetriveResponse(BareResponse):
     """File Retrieve Response"""
 
     file: File
-    base_resp: BaseResp
 
 
-class FileRetrieveContentResponse(BaseModel):
+class FileRetrieveContentResponse(BareResponse):
     """File Retrieve Content Response"""
 
     content: bytes  # to be confirmed
-    base_resp: BaseResp
 
 
-class FileDeleteResponse(BaseModel):
+class FileDeleteResponse(BareResponse):
     """File Delete Response"""
 
     file_id: NonNegativeInt
-    base_resp: BaseResp

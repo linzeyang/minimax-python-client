@@ -4,15 +4,15 @@ from typing import List, Literal, Optional
 
 from pydantic import BaseModel, NonNegativeInt, PositiveFloat, PositiveInt
 
-from minimax_client.entities.common import BaseResp
+from minimax_client.entities.common import BareResponse
 
 
 class HyperParameters(BaseModel):
     """Fine Tuning Hyper Parameters"""
 
-    batch_size: PositiveInt
-    learning_rate_multiplier: PositiveFloat
-    n_epochs: PositiveInt
+    batch_size: Optional[PositiveInt] = None
+    learning_rate_multiplier: Optional[PositiveFloat] = None
+    n_epochs: Optional[PositiveInt] = None
 
 
 class FineTuningJob(BaseModel):
@@ -20,28 +20,28 @@ class FineTuningJob(BaseModel):
 
     id: str
     created_at: PositiveInt
-    fine_tuned_model: Literal["abab5.5-chat-240119", "abab5.5s-chat-240123"]
+    fine_tuned_model: str
+    hyperparameters: Optional[HyperParameters] = None
+    model: str
+    object: Literal["finetune.job"]
+    organization_id: str
     result_files: list[str]
     status: str
     training_file: NonNegativeInt
-    validation_file: Optional[NonNegativeInt] = None
-    tokens_count: NonNegativeInt
-    hyperparameters: Optional[HyperParameters] = None
+    validation_file: NonNegativeInt
 
 
-class FineTuningJobCreateResponse(BaseModel):
+class FineTuningJobCreateResponse(BareResponse):
     """Fine Tuning Job Create Response"""
 
     finetune_job: FineTuningJob
-    base_resp: BaseResp
 
 
-class FineTuningJobListResponse(BaseModel):
+class FineTuningJobListResponse(BareResponse):
     """Fine Tuning Job List Response"""
 
-    finetune_jobs: List[FineTuningJob] = []  # to be confirmed
+    job_list: List[FineTuningJob] = []
     has_more: bool
-    base_resp: BaseResp
 
 
 class FineTuningJobEvent(BaseModel):
@@ -54,32 +54,29 @@ class FineTuningJobEvent(BaseModel):
     object: str
 
 
-class FineTuningJobEventListResponse(BaseModel):
+class FineTuningJobEventListResponse(BareResponse):
     """Fine Tuning Job Event List Response"""
 
-    event_list: List[FineTuningJobEvent] = []
+    event_list: list[FineTuningJobEvent] = []
     has_more: bool
-    base_resp: BaseResp
 
 
 class FineTuningModel(BaseModel):
     """Fine Tuning Model"""
 
-    model_id: str
+    id: str
     created_at: PositiveInt
-    object: str
-    base_model: str
+    object: Literal["finetune.model"]
+    base_model: Literal["abab5.5-chat-240119", "abab5.5s-chat-240123"]
 
 
-class FineTuningModelListResponse(BaseModel):
+class FineTuningModelListResponse(BareResponse):
     """Fine Tuning Model List Response"""
 
-    models: list[FineTuningModel] = []
-    base_resp: BaseResp
+    model_list: list[FineTuningModel] = []
 
 
-class FineTuningModelRetrieveResponse(BaseModel):
+class FineTuningModelRetrieveResponse(BareResponse):
     """Fine Tuning Model Retrieve Response"""
 
     model: FineTuningModel
-    base_resp: BaseResp

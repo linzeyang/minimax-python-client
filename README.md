@@ -14,6 +14,7 @@ The current implementation includes the following official APIs offered by MiniM
 - ChatCompletion v2
 - Embeddings
 - File
+- Finetune
 
 ## Prerequisites
 - Python >= 3.8
@@ -278,4 +279,28 @@ async def demo():
     print(resp.file_id)
 
 asyncio.run(demo())
+```
+
+#### 2.10 Sync call for files
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+resp = client.fine_tuning.jobs.create(
+    model="abab5.5s-chat-240123", training_file=..., suffix="test"
+)
+print(resp.id)
+print(resp.fine_tuned_model)
+
+resp = client.fine_tuning.jobs.list(limit=5)
+print(resp.job_list[0])
+
+resp = client.model.list()
+print(resp.model_list[0])
+
+resp = client.model.retrieve(model="ft:abab5.5s-chat-240123_XXXXXXXXXXXXX:test")
+print(resp.model.id)
 ```

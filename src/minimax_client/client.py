@@ -25,9 +25,13 @@ class BaseMiniMaxClient:
 
     api_key: str
     group_id: str
+    timeout: float
 
     def __init__(
-        self, api_key: Optional[str] = None, group_id: Optional[str] = None
+        self,
+        api_key: Optional[str] = None,
+        group_id: Optional[str] = None,
+        timeout: float = 60,
     ) -> None:
         if not api_key:
             api_key = self._get_api_key_from_env()
@@ -37,6 +41,7 @@ class BaseMiniMaxClient:
 
         self.api_key = api_key
         self.group_id = group_id
+        self.timeout = timeout
         self.http_client = self._get_http_client()
 
     def _get_api_key_from_env(self) -> str:
@@ -80,8 +85,8 @@ class MiniMax(BaseMiniMaxClient):
     fine_tuning: FineTuning
     model: Model
 
-    def __init__(self, api_key: Optional[str] = None) -> None:
-        super().__init__(api_key=api_key)
+    def __init__(self, *, api_key: Optional[str] = None, timeout: float = 60) -> None:
+        super().__init__(api_key=api_key, timeout=timeout)
         self.chat = Chat(http_client=self.http_client)
         self.embeddings = Embedding(http_client=self.http_client)
         self.files = Files(http_client=self.http_client)
@@ -105,7 +110,9 @@ class MiniMax(BaseMiniMaxClient):
             httpx.Client: The synchronous HTTP client.
         """
         return httpx.Client(
-            base_url=BASE_URL, headers={"Authorization": f"Bearer {self.api_key}"}
+            base_url=BASE_URL,
+            headers={"Authorization": f"Bearer {self.api_key}"},
+            timeout=self.timeout,
         )
 
 
@@ -119,8 +126,8 @@ class AsyncMiniMax(BaseMiniMaxClient):
     fine_tuning: AsyncFineTuning
     model: AsyncModel
 
-    def __init__(self, api_key: Optional[str] = None) -> None:
-        super().__init__(api_key=api_key)
+    def __init__(self, *, api_key: Optional[str] = None, timeout: float = 60) -> None:
+        super().__init__(api_key=api_key, timeout=timeout)
         self.chat = AsyncChat(http_client=self.http_client)
         self.embeddings = AsyncEmbedding(http_client=self.http_client)
         self.files = AsyncFiles(http_client=self.http_client)
@@ -156,5 +163,7 @@ class AsyncMiniMax(BaseMiniMaxClient):
             httpx.AsyncClient: The asynchronous HTTP client.
         """
         return httpx.AsyncClient(
-            base_url=BASE_URL, headers={"Authorization": f"Bearer {self.api_key}"}
+            base_url=BASE_URL,
+            headers={"Authorization": f"Bearer {self.api_key}"},
+            timeout=self.timeout,
         )
