@@ -25,7 +25,7 @@ class FineTuningJob(BaseModel):
     model: str
     object: Literal["finetune.job"]
     organization_id: str
-    result_files: list[str]
+    result_files: List[str]
     status: str
     training_file: NonNegativeInt
     validation_file: NonNegativeInt
@@ -57,7 +57,7 @@ class FineTuningJobEvent(BaseModel):
 class FineTuningJobEventListResponse(BareResponse):
     """Fine Tuning Job Event List Response"""
 
-    event_list: list[FineTuningJobEvent] = []
+    event_list: List[FineTuningJobEvent] = []
     has_more: bool
 
 
@@ -73,7 +73,7 @@ class FineTuningModel(BaseModel):
 class FineTuningModelListResponse(BareResponse):
     """Fine Tuning Model List Response"""
 
-    model_list: list[FineTuningModel] = []
+    model_list: List[FineTuningModel] = []
 
 
 class FineTuningModelRetrieveResponse(BareResponse):
