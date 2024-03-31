@@ -8,19 +8,20 @@
 [![python-versions](https://img.shields.io/pypi/pyversions/minimax-client.svg)](https://pypi.org/project/minimax-client)
 [![Main Workflow](https://github.com/linzeyang/minimax-python-client/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/linzeyang/minimax-python-client/actions/workflows/main.yml)
 
-An (unofficial) python native client for easy interaction with [MiniMax Open Platform](https://api.minimax.chat/)
+An (unofficial) python native client for easy interaction with [MiniMax Open Platform](https://www.minimaxi.com/platform)
 
 The current implementation includes the following official APIs offered by MiniMax:
 - ChatCompletion v2
 - Embeddings
 - File
 - Finetune
+- Assistants
 
 ## Prerequisites
 - Python >= 3.8
 - pip (or any other tool that does the same job)
 - Internet connection
-- An API KEY acquired from [MiniMax Open Platform](https://api.minimax.chat/user-center/basic-information/interface-key)
+- An API KEY acquired from [MiniMax Open Platform](https://www.minimaxi.com/user-center/basic-information/interface-key)
 
 ## Quick Start
 
@@ -303,4 +304,28 @@ print(resp.model_list[0])
 
 resp = client.model.retrieve(model="ft:abab5.5s-chat-240123_XXXXXXXXXXXXX:test")
 print(resp.model.id)
+```
+
+#### 2.11 Sync call for assistants
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+resp = client.assistants.create(model="abab5.5s-chat-240123")
+
+client.assistants.update(
+    assistant_id=resp.id,
+    model="abab5.5s-chat-240123",
+    name="test-assistant",
+    instructions="You are a helpful assistant.",
+)
+
+client.assistants.retrieve(assistant_id=resp.id)
+
+client.assistants.list(limit=5)
+
+client.assistants.delete(assistant_id=resp.id)
 ```
