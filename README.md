@@ -16,6 +16,8 @@ The current implementation includes the following official APIs offered by MiniM
 - File
 - Finetune
 - Assistants
+    - Assistant
+    - Assistant File
 
 ## Prerequisites
 - Python >= 3.8
@@ -328,4 +330,35 @@ client.assistants.retrieve(assistant_id=resp.id)
 client.assistants.list(limit=5)
 
 client.assistants.delete(assistant_id=resp.id)
+```
+
+#### 2.12 Sync call for assistant files
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+resp = client.files.create(filepath="sample.txt", purpose="retrieval")
+
+file_id = resp.file.file_id
+
+resp = client.assistants.create(
+    model="abab5.5s-chat-240123",
+    name="test-assistant",
+    instructions="You are a helpful assistant.",
+    description="test-assistant",
+    tools=[{"type": "retrieval"}],
+)
+
+assistant_id = resp.id
+
+resp = client.assistants.files.create(assistant_id=assistant_id, file_id=str(file_id))
+
+resp = client.assistants.files.retrieve(assistant_id=assistant_id, file_id=str(file_id))
+
+resp = client.assistants.files.list(assistant_id=assistant_id, limit=5, order="asc")
+
+resp = client.assistants.files.delete(assistant_id=assistant_id, file_id=str(file_id))
 ```

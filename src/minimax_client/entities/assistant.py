@@ -18,8 +18,16 @@ class AssistantToolFunction(BaseModel):
 class AssistantTool(BaseModel):
     """Assistant Tool"""
 
-    type: Literal["function", "code_interpreter", "web_search", "retrieval"]
+    type: Literal["code_interpreter", "retrieval", "function", "web_search"]
     function: Optional[AssistantToolFunction] = None
+
+
+class AssistantT2AOption(BaseModel):
+    """Assistant T2A Option"""
+
+    model: str
+    voice_id: str
+    format: Literal["mp3", "flac", "pcm"] = "mp3"
 
 
 class Assistant(BaseModel):
@@ -28,13 +36,14 @@ class Assistant(BaseModel):
     id: str
     object: Literal["assistant"]
     created_at: PositiveInt
+    updated_at: Optional[PositiveInt] = None
     name: str
     description: str
     model: Literal[
         "abab6-chat",
         "abab5.5-chat",
-        "abab5.5s-chat",
         "abab5.5-chat-240131",
+        "abab5.5s-chat",
         "abab5.5s-chat-240123",
     ]
     instructions: str
@@ -43,6 +52,7 @@ class Assistant(BaseModel):
     metadata: Dict = {}
     rolemeta: Dict
     status: str
+    t2a_option: Optional[AssistantT2AOption] = None
 
 
 class AssistantCreateResponse(BareResponse, Assistant):
@@ -75,3 +85,33 @@ class AssistantListResponse(BareResponse):
     has_more: bool
     first_id: str
     last_id: str
+
+
+class AssistantFile(BaseModel):
+    """Assistant File"""
+
+    id: str
+    object: Literal["assistant.file"]
+    created_at: PositiveInt
+    assistant_id: str
+
+
+class AssistantFileCreateResponse(BareResponse, AssistantFile):
+    """Assistant File Create Response"""
+
+
+class AssistantFileRetrieveResponse(BareResponse, AssistantFile):
+    """Assistant File Retrieve Response"""
+
+
+class AssistantFileListResponse(BareResponse):
+    """Assistant File List Response"""
+
+    object: Literal["list"]
+    data: List[AssistantFile]
+
+
+class AssistantFileDeleteResponse(BareResponse):
+    """Assistant File Delete Response"""
+
+    file_id: str

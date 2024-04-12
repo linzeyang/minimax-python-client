@@ -2,9 +2,15 @@
 
 from typing import Any, Dict, List, Literal, Optional, Union
 
+import httpx
+
 from minimax_client.entities.assistant import (
     AssistantCreateResponse,
     AssistantDeleteResponse,
+    AssistantFileCreateResponse,
+    AssistantFileDeleteResponse,
+    AssistantFileListResponse,
+    AssistantFileRetrieveResponse,
     AssistantListResponse,
     AssistantRetrieveResponse,
     AssistantUpdateResponse,
@@ -12,10 +18,213 @@ from minimax_client.entities.assistant import (
 from minimax_client.interfaces.base import BaseAsyncInterface, BaseSyncInterface
 
 
+class AssistantFile(BaseSyncInterface):
+    """Synchronous Assistant File interface"""
+
+    url_path = "assistants/files"
+
+    def create(self, assistant_id: str, file_id: str) -> AssistantFileCreateResponse:
+        """
+        Add an existing file to given assistant
+
+        Args:
+            assistant_id (str): The ID of the assistant
+            file_id (str): The ID of the file to add to the assistant
+
+        Returns:
+            AssistantFileCreateResponse: The response from the API
+        """
+        resp = self.client.post(
+            url=f"{self.url_path}/create",
+            json={"assistant_id": assistant_id, "file_id": file_id},
+        )
+
+        return AssistantFileCreateResponse(**resp.json())
+
+    def retrieve(
+        self, assistant_id: str, file_id: str
+    ) -> AssistantFileRetrieveResponse:
+        """
+        Retrieve info of a file associated with the given assistant
+
+        Args:
+            assistant_id (str): The ID of the assistant
+            file_id (str): The ID of the file associated with the assistant
+
+        Returns:
+            AssistantFileRetrieveResponse: The response from the API
+        """
+        resp = self.client.get(
+            url=f"{self.url_path}/retrieve",
+            params={"assistant_id": assistant_id, "file_id": file_id},
+        )
+
+        return AssistantFileRetrieveResponse(**resp.json())
+
+    def list(
+        self,
+        assistant_id: str,
+        limit: int = 20,
+        order: Literal["asc", "desc"] = "desc",
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+    ) -> AssistantFileListResponse:
+        """
+        List files associated with the given assistant
+
+        Args:
+            assistant_id (str): The ID of the assistant
+            limit (int): The number of files to return. Defaults to 20.
+            order (str):
+                The order of the list, could be "asc" or "desc". Defaults to "desc".
+            after (Optional[str], optional):
+                The ID of the file to start after. Defaults to None.
+            before (Optional[str], optional):
+                The ID of the file to end before. Defaults to None.
+
+        Returns:
+            AssistantFileListResponse: The response from the API
+        """
+        params = {"assistant_id": assistant_id, "limit": limit, "order": order}
+
+        if after:
+            params["after"] = after
+        if before:
+            params["before"] = before
+
+        resp = self.client.get(url=f"{self.url_path}/list", params=params)
+
+        return AssistantFileListResponse(**resp.json())
+
+    def delete(self, assistant_id: str, file_id: str) -> AssistantFileDeleteResponse:
+        """
+        Delete a file associated with the given assistant
+
+        Args:
+            assistant_id (str): The ID of the assistant
+            file_id (str):
+                The ID of the file to delete that is associated with the assistant
+
+        Returns:
+            AssistantFileDeleteResponse: The response from the API
+        """
+        resp = self.client.post(
+            url=f"{self.url_path}/delete",
+            json={"assistant_id": assistant_id, "file_id": file_id},
+        )
+
+        return AssistantFileDeleteResponse(**resp.json())
+
+
+class AsyncAssistantFile(BaseAsyncInterface, AssistantFile):
+    """Asynchronous Assistant File interface"""
+
+    async def create(
+        self, assistant_id: str, file_id: str
+    ) -> AssistantFileCreateResponse:
+        """
+        Add an existing file to given assistant
+
+        Args:
+            assistant_id (str): The ID of the assistant
+            file_id (str): The ID of the file to add to the assistant
+
+        Returns:
+            AssistantFileCreateResponse: The response from the API
+        """
+        resp = await self.client.post(
+            url=f"{self.url_path}/create",
+            json={"assistant_id": assistant_id, "file_id": file_id},
+        )
+
+        return AssistantFileCreateResponse(**resp.json())
+
+    async def retrieve(
+        self, assistant_id: str, file_id: str
+    ) -> AssistantFileRetrieveResponse:
+        """
+        Retrieve info of a file associated with the given assistant
+
+        Args:
+            assistant_id (str): The ID of the assistant
+            file_id (str): The ID of the file associated with the assistant
+
+        Returns:
+            AssistantFileRetrieveResponse: The response from the API
+        """
+        resp = await self.client.get(
+            url=f"{self.url_path}/retrieve",
+            params={"assistant_id": assistant_id, "file_id": file_id},
+        )
+
+        return AssistantFileRetrieveResponse(**resp.json())
+
+    async def list(
+        self,
+        assistant_id: str,
+        limit: int = 20,
+        order: Literal["asc", "desc"] = "desc",
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+    ) -> AssistantFileListResponse:
+        """
+        List files associated with the given assistant
+
+        Args:
+            assistant_id (str): The ID of the assistant
+            limit (int): The number of files to return. Defaults to 20.
+            order (str):
+                The order of the list, could be "asc" or "desc". Defaults to "desc".
+            after (Optional[str], optional):
+                The ID of the file to start after. Defaults to None.
+            before (Optional[str], optional):
+                The ID of the file to end before. Defaults to None.
+
+        Returns:
+            AssistantFileListResponse: The response from the API
+        """
+        params = {"assistant_id": assistant_id, "limit": limit, "order": order}
+
+        if after:
+            params["after"] = after
+        if before:
+            params["before"] = before
+
+        resp = await self.client.get(url=f"{self.url_path}/list", params=params)
+
+        return AssistantFileListResponse(**resp.json())
+
+    async def delete(
+        self, assistant_id: str, file_id: str
+    ) -> AssistantFileDeleteResponse:
+        """
+        Delete a file associated with the given assistant
+
+        Args:
+            assistant_id (str): The ID of the assistant
+            file_id (str):
+                The ID of the file to delete that is associated with the assistant
+
+        Returns:
+            AssistantFileDeleteResponse: The response from the API
+        """
+        resp = await self.client.post(
+            url=f"{self.url_path}/delete",
+            json={"assistant_id": assistant_id, "file_id": file_id},
+        )
+
+        return AssistantFileDeleteResponse(**resp.json())
+
+
 class Assistant(BaseSyncInterface):
     """Synchronous Assistants interface"""
 
     url_path = "assistants"
+    files: AssistantFile
+
+    def __init__(self, http_client: httpx.Client) -> None:
+        super().__init__(http_client=http_client)
+        self.files = AssistantFile(http_client=http_client)
 
     def create(
         self,
@@ -23,8 +232,8 @@ class Assistant(BaseSyncInterface):
         model: Literal[
             "abab6-chat",
             "abab5.5-chat",
-            "abab5.5s-chat",
             "abab5.5-chat-240131",
+            "abab5.5s-chat",
             "abab5.5s-chat-240123",
         ],
         name: Optional[str] = None,
@@ -109,8 +318,8 @@ class Assistant(BaseSyncInterface):
         model: Literal[
             "abab6-chat",
             "abab5.5-chat",
-            "abab5.5s-chat",
             "abab5.5-chat-240131",
+            "abab5.5s-chat",
             "abab5.5s-chat-240123",
         ],
         name: str,
@@ -227,14 +436,20 @@ class Assistant(BaseSyncInterface):
 class AsyncAssistant(BaseAsyncInterface, Assistant):
     """Asynchronous Assistants interface"""
 
+    files: AsyncAssistantFile
+
+    def __init__(self, http_client: httpx.AsyncClient) -> None:
+        super().__init__(http_client=http_client)
+        self.files = AsyncAssistantFile(http_client=http_client)
+
     async def create(
         self,
         *,
         model: Literal[
             "abab6-chat",
             "abab5.5-chat",
-            "abab5.5s-chat",
             "abab5.5-chat-240131",
+            "abab5.5s-chat",
             "abab5.5s-chat-240123",
         ],
         name: Optional[str] = None,
@@ -319,8 +534,8 @@ class AsyncAssistant(BaseAsyncInterface, Assistant):
         model: Literal[
             "abab6-chat",
             "abab5.5-chat",
-            "abab5.5s-chat",
             "abab5.5-chat-240131",
+            "abab5.5s-chat",
             "abab5.5s-chat-240123",
         ],
         name: str,
