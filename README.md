@@ -18,6 +18,7 @@ The current implementation includes the following official APIs offered by MiniM
 - Assistants
     - Assistant
     - Assistant File
+    - Thread
 
 ## Prerequisites
 - Python >= 3.8
@@ -361,4 +362,19 @@ resp = client.assistants.files.retrieve(assistant_id=assistant_id, file_id=str(f
 resp = client.assistants.files.list(assistant_id=assistant_id, limit=5, order="asc")
 
 resp = client.assistants.files.delete(assistant_id=assistant_id, file_id=str(file_id))
+```
+
+#### 2.13 Sync call for threads
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+resp = client.threads.create(metadata={"key": "value"})
+
+resp = client.threads.retrieve(thread_id=resp.id)
+
+resp = client.threads.update(thread_id=resp.id, metadata={"key": "value2"})
 ```

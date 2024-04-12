@@ -17,6 +17,7 @@ from minimax_client.interfaces.fine_tuning import (
     FineTuning,
     Model,
 )
+from minimax_client.interfaces.thread import AsyncThreads, Threads
 
 BASE_URL = "https://api.minimax.chat/v1"
 
@@ -86,6 +87,7 @@ class MiniMax(BaseMiniMaxClient):
     files: Files
     fine_tuning: FineTuning
     model: Model
+    threads: Threads
 
     def __init__(self, *, api_key: Optional[str] = None, timeout: float = 60) -> None:
         super().__init__(api_key=api_key, timeout=timeout)
@@ -95,6 +97,7 @@ class MiniMax(BaseMiniMaxClient):
         self.files = Files(http_client=self.http_client)
         self.fine_tuning = FineTuning(http_client=self.http_client)
         self.model = Model(http_client=self.http_client)
+        self.threads = Threads(http_client=self.http_client)
 
     def __del__(self) -> None:
         """Closes the HTTP client if it is not already closed."""
@@ -129,6 +132,7 @@ class AsyncMiniMax(BaseMiniMaxClient):
     files: AsyncFiles
     fine_tuning: AsyncFineTuning
     model: AsyncModel
+    threads: AsyncThreads
 
     def __init__(self, *, api_key: Optional[str] = None, timeout: float = 60) -> None:
         super().__init__(api_key=api_key, timeout=timeout)
@@ -138,6 +142,7 @@ class AsyncMiniMax(BaseMiniMaxClient):
         self.files = AsyncFiles(http_client=self.http_client)
         self.fine_tuning = AsyncFineTuning(http_client=self.http_client)
         self.model = AsyncModel(http_client=self.http_client)
+        self.threads = AsyncThreads(http_client=self.http_client)
 
     def __del__(self) -> None:
         async def __del_client() -> None:
