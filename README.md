@@ -19,6 +19,8 @@ The current implementation includes the following official APIs offered by MiniM
     - Assistant
     - Assistant File
     - Thread
+    - Message
+    - Run
 
 ## Prerequisites
 - Python >= 3.8
@@ -364,7 +366,7 @@ resp = client.assistants.files.list(assistant_id=assistant_id, limit=5, order="a
 resp = client.assistants.files.delete(assistant_id=assistant_id, file_id=str(file_id))
 ```
 
-#### 2.13 Sync call for threads
+#### 2.13 Sync call for assistant threads
 
 ```python
 from minimax_client import MiniMax
@@ -377,4 +379,47 @@ resp = client.threads.create(metadata={"key": "value"})
 resp = client.threads.retrieve(thread_id=resp.id)
 
 resp = client.threads.update(thread_id=resp.id, metadata={"key": "value2"})
+```
+
+#### 2.14 Sync call for assistant messages
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+resp = client.threads.create(metadata={"key": "value"})
+
+thread_id = resp.id
+
+resp = client.threads.messages.create(
+    thread_id=thread_id, content="Hello", role="user", metadata={"key": "value"}
+)
+
+resp = client.threads.messages.retrieve(thread_id=thread_id, message_id=resp.id)
+
+resp = client.threads.messages.list(thread_id=thread_id, limit=5, order="asc")
+```
+
+#### 2.15 Sync call for assistant runs
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+pass
+```
+
+#### 2.16 Sync call for assistant run steps
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+pass
 ```

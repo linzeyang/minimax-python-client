@@ -7,12 +7,20 @@ from pydantic import BaseModel, PositiveInt
 from minimax_client.entities.common import BareResponse
 
 
+class AssistantToolFunctionParameters(BaseModel):
+    """Assistant Tool Function Parameters"""
+
+    type: Literal["object"]
+    required: List[str]
+    properties: Dict[str, Dict]
+
+
 class AssistantToolFunction(BaseModel):
     """Assistant Tool Function"""
 
     description: str
     name: str
-    parameters: Optional[Dict] = None
+    parameters: Optional[AssistantToolFunctionParameters] = None
 
 
 class AssistantTool(BaseModel):
