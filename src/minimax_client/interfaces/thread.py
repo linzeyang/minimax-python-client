@@ -12,6 +12,8 @@ from minimax_client.entities.thread import (
     RunCreateResponse,
     RunListResponse,
     RunRetrieveResponse,
+    RunStepListResponse,
+    RunStepRetrieveResponse,
     RunSubmitToolOutputsResponse,
     RunUpdateResponse,
     ThreadCreateResponse,
@@ -205,10 +207,145 @@ class AsyncMessages(BaseAsyncInterface, Messages):
         return MessageListResponse(**resp.json())
 
 
+class RunSteps(BaseSyncInterface):
+    """Synchronous Run Steps interface"""
+
+    url_path = "threads/run_steps"
+
+    def retrieve(
+        self, step_id: str, thread_id: str, run_id: str
+    ) -> RunStepRetrieveResponse:
+        """
+        Retrieve general info of the given run step
+
+        Args:
+            step_id (str): The ID of the run step to retrieve
+            thread_id (str): The ID of the thread the run belongs to
+            run_id (str): The ID of the run the step belongs to
+
+        Returns:
+            RunStepRetrieveResponse: The response from the API
+        """
+        params = {"step_id": step_id, "thread_id": thread_id, "run_id": run_id}
+
+        resp = self.client.get(url=f"{self.url_path}/retrieve", params=params)
+
+        return RunStepRetrieveResponse(**resp.json())
+
+    def list(
+        self,
+        run_id: str,
+        thread_id: str,
+        limit: int = 20,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+    ) -> RunStepListResponse:
+        """
+        Retrive all run steps of the given run
+
+        Args:
+            run_id (str): The ID of the run to list steps from
+            thread_id (str): The ID of the thread the run belongs to
+            limit (int):
+                The maximum number of steps to return. Defaults to 20.
+            after (Optional[str]):
+                The ID of the step to start after. Defaults to None.
+            before (Optional[str]):
+                The ID of the step to end before. Defaults to None.
+
+        Returns:
+            RunStepListResponse: The response from the API
+        """
+        params = {
+            "run_id": run_id,
+            "thread_id": thread_id,
+            "limit": limit,
+        }
+
+        if after:
+            params["after"] = after
+
+        if before:
+            params["before"] = before
+
+        resp = self.client.get(url=f"{self.url_path}/list", params=params)
+
+        return RunStepListResponse(**resp.json())
+
+
+class AsyncRunSteps(BaseAsyncInterface, RunSteps):
+    """Asynchronous Run Steps interface"""
+
+    async def retrieve(
+        self, step_id: str, thread_id: str, run_id: str
+    ) -> RunStepRetrieveResponse:
+        """
+        Retrieve general info of the given run step
+
+        Args:
+            step_id (str): The ID of the run step to retrieve
+            thread_id (str): The ID of the thread the run belongs to
+            run_id (str): The ID of the run the step belongs to
+
+        Returns:
+            RunStepRetrieveResponse: The response from the API
+        """
+        params = {"step_id": step_id, "thread_id": thread_id, "run_id": run_id}
+
+        resp = await self.client.get(url=f"{self.url_path}/retrieve", params=params)
+
+        return RunStepRetrieveResponse(**resp.json())
+
+    async def list(
+        self,
+        run_id: str,
+        thread_id: str,
+        limit: int = 20,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+    ) -> RunStepListResponse:
+        """
+        Retrive all run steps of the given run
+
+        Args:
+            run_id (str): The ID of the run to list steps from
+            thread_id (str): The ID of the thread the run belongs to
+            limit (int):
+                The maximum number of steps to return. Defaults to 20.
+            after (Optional[str]):
+                The ID of the step to start after. Defaults to None.
+            before (Optional[str]):
+                The ID of the step to end before. Defaults to None.
+
+        Returns:
+            RunStepListResponse: The response from the API
+        """
+        params = {
+            "run_id": run_id,
+            "thread_id": thread_id,
+            "limit": limit,
+        }
+
+        if after:
+            params["after"] = after
+
+        if before:
+            params["before"] = before
+
+        resp = await self.client.get(url=f"{self.url_path}/list", params=params)
+
+        return RunStepListResponse(**resp.json())
+
+
 class Runs(BaseSyncInterface):
     """Synchronous Run interface"""
 
     url_path = "threads/run"
+    steps: RunSteps
+
+    def __init__(self, http_client: httpx.Client) -> None:
+        super().__init__(http_client=http_client)
+        self.steps = RunSteps(http_client=http_client)
 
     def create(
         self,
@@ -296,7 +433,6 @@ class Runs(BaseSyncInterface):
         self,
         thread_id: str,
         limit: int = 20,
-        order: Literal["asc", "desc"] = "desc",
         after: Optional[str] = None,
         before: Optional[str] = None,
     ) -> RunListResponse:
@@ -306,8 +442,6 @@ class Runs(BaseSyncInterface):
         Args:
             thread_id (str): The ID of the thread to list runs from
             limit (int, optional): The maximum number of runs to return. Defaults to 20.
-            order (Literal["asc", "desc"], optional):
-                The order of the list. Defaults to "desc".
             after (Optional[str], optional):
                 The ID of the run to start from. Defaults to None.
             before (Optional[str], optional):
@@ -316,7 +450,7 @@ class Runs(BaseSyncInterface):
         Returns:
             RunListResponse: The response from the API
         """
-        params = {"thread_id": thread_id, "limit": limit, "order": order}
+        params = {"thread_id": thread_id, "limit": limit}
 
         if after:
             params["after"] = after
@@ -405,6 +539,12 @@ class Runs(BaseSyncInterface):
 class AsyncRuns(BaseAsyncInterface, Runs):
     """Asynchronous Run interface"""
 
+    steps: AsyncRunSteps
+
+    def __init__(self, http_client: httpx.AsyncClient) -> None:
+        super().__init__(http_client=http_client)
+        self.steps = AsyncRunSteps(http_client=http_client)
+
     async def create(
         self,
         thread_id: str,
@@ -491,7 +631,6 @@ class AsyncRuns(BaseAsyncInterface, Runs):
         self,
         thread_id: str,
         limit: int = 20,
-        order: Literal["asc", "desc"] = "desc",
         after: Optional[str] = None,
         before: Optional[str] = None,
     ) -> RunListResponse:
@@ -501,8 +640,6 @@ class AsyncRuns(BaseAsyncInterface, Runs):
         Args:
             thread_id (str): The ID of the thread to list runs from
             limit (int, optional): The maximum number of runs to return. Defaults to 20.
-            order (Literal["asc", "desc"], optional):
-                The order of the list. Defaults to "desc".
             after (Optional[str], optional):
                 The ID of the run to start from. Defaults to None.
             before (Optional[str], optional):
@@ -511,7 +648,7 @@ class AsyncRuns(BaseAsyncInterface, Runs):
         Returns:
             RunListResponse: The response from the API
         """
-        params = {"thread_id": thread_id, "limit": limit, "order": order}
+        params = {"thread_id": thread_id, "limit": limit}
 
         if after:
             params["after"] = after

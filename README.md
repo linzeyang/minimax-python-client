@@ -384,6 +384,8 @@ resp = client.threads.update(thread_id=resp.id, metadata={"key": "value2"})
 #### 2.14 Sync call for assistant messages
 
 ```python
+import time
+
 from minimax_client import MiniMax
 
 
@@ -402,7 +404,7 @@ resp = client.threads.messages.retrieve(thread_id=thread_id, message_id=resp.id)
 resp = client.threads.messages.list(thread_id=thread_id, limit=5, order="asc")
 ```
 
-#### 2.15 Sync call for assistant runs
+#### 2.15 Sync call for assistant runs and run steps
 
 ```python
 from minimax_client import MiniMax
@@ -410,16 +412,60 @@ from minimax_client import MiniMax
 
 client = MiniMax(api_key="<YOUR_API_KEY>")
 
-pass
-```
+resp = client.assistants.create(
+    model="abab5.5-chat",
+    name="test-assistant",
+    instructions="You are a helpful assistant that can use tools to answer questions.",
+    tools=[
+        {
+            "type": "function",
+            "function": {
+                "name": "get_weather",
+                "description": "get weather",
+                "parameters": {
+                    "type": "object",
+                    "required": ["city"],
+                    "properties": {"city": {"type": "string"}},
+                },
+            },
+        },
+        {"type": "web_search"},
+        {"type": "code_interpreter"},
+    ],
+)
 
-#### 2.16 Sync call for assistant run steps
+assistant_id = resp.id
 
-```python
-from minimax_client import MiniMax
+resp = client.assistants.retrieve(assistant_id=assistant_id)
 
+print(resp.model_dump())
 
-client = MiniMax(api_key="<YOUR_API_KEY>")
+resp = client.threads.create(metadata={"key1": "value1"})
 
-pass
+thread_id = resp.id
+
+client.threads.messages.create(
+    thread_id=thread_id,
+    role="user",
+    content="In the science-fiction 'Three-Body Problem', what is the profession of Wang Miao?",
+)
+
+resp = client.threads.runs.create(thread_id=thread_id, assistant_id=assistant_id)
+
+run_id = resp.id
+
+time.sleep(10)
+
+resp = client.threads.runs.retrieve(run_id=run_id, thread_id=thread_id)
+
+print(resp.model_dump())
+
+resp = client.threads.runs.steps.list(thread_id=thread_id, run_id=run_id, limit=10)
+
+for step in resp.data:
+    resp = client.threads.runs.steps.retrieve(
+        step_id=step.id, thread_id=thread_id, run_id=run_id
+    )
+
+    print(resp.model_dump())
 ```

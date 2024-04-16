@@ -5,6 +5,7 @@ from typing import Dict, List, Literal, Optional
 from pydantic import BaseModel, HttpUrl, NonNegativeInt
 
 from minimax_client.entities.assistant import AssistantTool
+from minimax_client.entities.chat_completion import ChoiceMessageToolCall
 from minimax_client.entities.common import BareResponse
 
 
@@ -90,7 +91,7 @@ class Message(BaseModel):
     file_ids: Optional[List[str]] = None
     assistant_id: str
     run_id: str
-    metadata: Dict[str, str] = {}
+    metadata: Optional[Dict[str, str]] = None
     updated_at: Optional[NonNegativeInt] = None
 
 
@@ -118,16 +119,38 @@ class RunError(BaseModel):
     message: str
 
 
+class RunRequiredActionSubmitToolOutputs(BaseModel):
+    """Run Required Action Submit Tool Outputs"""
+
+    tool_calls: List[ChoiceMessageToolCall]
+
+
+class RunRequiredAction(BaseModel):
+    """Run Required Action"""
+
+    type: Literal["submit_tool_outputs", ""]
+    submit_tool_outputs: Optional[RunRequiredActionSubmitToolOutputs] = None
+
+
 class Run(BaseModel):
     """Run"""
 
     id: str
-    object: Literal["run"]
+    object: Literal["thread.run"]
     created_at: NonNegativeInt
     assistant_id: str
     thread_id: str
-    status: str
-    started_at: Optional[NonNegativeInt] = None
+    status: Literal[
+        "queued",
+        "started",
+        "in_progress",
+        "requires_action",
+        "completed",
+        "expired",
+        "cancelled",
+        "failed",
+    ]
+    started_at: NonNegativeInt
     expires_at: Optional[NonNegativeInt] = None
     cancelled_at: Optional[NonNegativeInt] = None
     failed_at: Optional[NonNegativeInt] = None
@@ -145,7 +168,8 @@ class Run(BaseModel):
     instructions: str
     tools: List[AssistantTool] = []
     file_ids: List[str] = []
-    metadata: Dict[str, str] = {}
+    metadata: Optional[Dict[str, str]] = None
+    required_action: Optional[RunRequiredAction] = None
 
 
 class RunCreateResponse(BareResponse, Run):
@@ -172,8 +196,102 @@ class RunUpdateResponse(BareResponse):
 class RunCancelResponse(BareResponse):
     """Run Cancel Response"""
 
-    run: Run
+    run: Optional[Run] = None
 
 
 class RunSubmitToolOutputsResponse(BareResponse, Run):
     """Run Submit Tool Outputs Response"""
+
+
+class RunStepDetailMessageCreation(BaseModel):
+    """Run Step Detail Message Creation"""
+
+    message_id: str
+
+
+class RunStepDetailToolCallCodeInterpreterOutput(BaseModel):
+    """Run Step Detail Tool Call Code Interpreter Output"""
+
+    type: str
+    logs: Optional[str] = None
+
+
+class RunStepDetailToolCallCodeInterpreter(BaseModel):
+    """Run Step Detail Tool Call Code Interpreter"""
+
+    input: str
+    outputs: List[RunStepDetailToolCallCodeInterpreterOutput]
+
+
+class RunStepDetailToolCallWebSearch(BaseModel):
+    """Run Step Detail Tool Call Web Search"""
+
+    query: str = ""
+    outputs: str = ""
+    name: str = ""
+    arguments: str = ""
+
+
+class RunStepDetailToolCallRetrieval(BaseModel):
+    """Run Step Detail Tool Call Retrieval"""
+
+    query: str
+    outputs: str
+
+
+class RunStepDetailToolCallFuntion(BaseModel):
+    """Run Step Detail Tool Call Function"""
+
+    name: str
+    arguments: str
+    output: str
+
+
+class RunStepDetailToolCall(BaseModel):
+    """Run Step Detail Tool Call"""
+
+    id: str
+    type: Literal["code_interpreter", "web_search", "retrieval", "function"]
+    code_interpreter: Optional[RunStepDetailToolCallCodeInterpreter] = None
+    web_search: Optional[RunStepDetailToolCallWebSearch] = None
+    retrieval: Optional[RunStepDetailToolCallRetrieval] = None
+    function: Optional[RunStepDetailToolCallFuntion] = None
+
+
+class RunStepDetail(BaseModel):
+    """Run Step Detail"""
+
+    type: Literal["message_creation", "tool_calls"]
+    message_creation: Optional[RunStepDetailMessageCreation] = None
+    tool_calls: Optional[List[RunStepDetailToolCall]] = None
+
+
+class RunStep(BaseModel):
+    """Run Step"""
+
+    id: str
+    object: Literal["thread.run.step"]
+    run_id: str
+    assistant_id: str
+    thread_id: str
+    type: Literal["message_creation", "tool_calls"]
+    status: str
+    created_at: NonNegativeInt
+    expired_at: Optional[NonNegativeInt] = None
+    cancelled_at: Optional[NonNegativeInt] = None
+    failed_at: Optional[NonNegativeInt] = None
+    completed_at: Optional[NonNegativeInt] = None
+    last_error: Optional[RunError] = None
+    step_details: RunStepDetail
+    base_resp: Dict
+
+
+class RunStepRetrieveResponse(BareResponse, RunStep):
+    """Run Step Retrieve response"""
+
+
+class RunStepListResponse(BareResponse):
+    """Run Step List response"""
+
+    object: Literal["list"]
+    data: List[RunStep]
