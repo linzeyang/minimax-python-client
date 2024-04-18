@@ -11,18 +11,21 @@
 An (unofficial) python native client for easy interaction with [MiniMax Open Platform](https://www.minimaxi.com/platform)
 
 The current implementation includes the following official APIs offered by MiniMax:
+
 - ChatCompletion v2
 - Embeddings
 - File
 - Finetune
 - Assistants
-    - Assistant
-    - Assistant File
-    - Thread
-    - Message
-    - Run
+  - Assistant
+  - Assistant File
+  - Thread
+  - Message
+  - Run
+  - Run Step
 
 ## Prerequisites
+
 - Python >= 3.8
 - pip (or any other tool that does the same job)
 - Internet connection
@@ -142,7 +145,6 @@ for chunk in stream:
 
 # It's currently sunny in Log Angeles, with a temperature of 51°F and wind from the east at 5 mph.
 ```
-
 
 #### 2.4 Async call
 
@@ -468,4 +470,34 @@ for step in resp.data:
     )
 
     print(resp.model_dump())
+```
+
+#### 2.16 Sync call for assistant STREAMED runs and run steps
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+resp = client.assistants.create(
+    model="abab5.5-chat",
+    name="test-assistant",
+    instructions="You are a helpful assistant.",
+)
+
+assistant_id = resp.id
+
+resp = client.threads.create(metadata={"key1": "value1"})
+
+thread_id = resp.id
+
+for part in client.threads.runs.stream(
+    stream_mode=1,
+    thread_id=thread_id,
+    assistant_id=assistant_id,
+    messages=[{"type": 1, "role": "user", "content": "1 + 1 equals:"}],
+):
+    print(part.data.model_dump())
+    print("\n-----\n")
 ```

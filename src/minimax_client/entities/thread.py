@@ -9,6 +9,13 @@ from minimax_client.entities.chat_completion import ChoiceMessageToolCall
 from minimax_client.entities.common import BareResponse
 
 
+class StreamedRunBaseResp(BaseModel):
+    """Streamed Run Base Resp"""
+
+    code: Optional[NonNegativeInt] = None
+    message: Optional[str] = None
+
+
 class Thread(BaseModel):
     """Thread"""
 
@@ -62,7 +69,7 @@ class MessageTextContent(BaseModel):
     """Message Text Content"""
 
     value: str
-    annotations: List[MessageTextContentAnnotation] = []
+    annotations: Optional[List[MessageTextContentAnnotation]] = None
 
 
 class MessageImageFile(BaseModel):
@@ -112,6 +119,13 @@ class MessageListResponse(BareResponse):
     last_id: str
 
 
+class StreamedRunMessageResponse(BaseModel):
+    """Streamed Run Message Response"""
+
+    data: Message
+    base_resp: StreamedRunBaseResp
+
+
 class RunError(BaseModel):
     """Run Error"""
 
@@ -132,12 +146,29 @@ class RunRequiredAction(BaseModel):
     submit_tool_outputs: Optional[RunRequiredActionSubmitToolOutputs] = None
 
 
+class T2AOption(BaseModel):
+    """T2A Option"""
+
+    model: Literal["speech-01"]
+    voice_id: str
+
+
+class StreamedRunT2AControl(BaseModel):
+    """Streamed Run T2A Control"""
+
+    combine: bool
+    model: Literal["speech-01"]
+    oss: str
+    return_bytes: bool
+    text: str
+    timbre_weights: Dict[str, float]
+
+
 class Run(BaseModel):
     """Run"""
 
     id: str
-    object: Literal["thread.run"]
-    created_at: NonNegativeInt
+    object: Literal["thread.run", "run"]
     assistant_id: str
     thread_id: str
     status: Literal[
@@ -150,7 +181,8 @@ class Run(BaseModel):
         "cancelled",
         "failed",
     ]
-    started_at: NonNegativeInt
+    created_at: NonNegativeInt
+    started_at: Optional[NonNegativeInt] = None
     expires_at: Optional[NonNegativeInt] = None
     cancelled_at: Optional[NonNegativeInt] = None
     failed_at: Optional[NonNegativeInt] = None
@@ -164,12 +196,20 @@ class Run(BaseModel):
         "abab5.5s-chat",
         "abab5.5s-chat-240123",
     ]
-    t2a_option: Optional[Dict[str, str]] = None
+    t2a_option: Optional[T2AOption] = None
+    t2a_control: Optional[StreamedRunT2AControl] = None
     instructions: str
     tools: List[AssistantTool] = []
     file_ids: List[str] = []
     metadata: Optional[Dict[str, str]] = None
     required_action: Optional[RunRequiredAction] = None
+
+
+class StreamedRunResponse(BaseModel):
+    """Streamed Run Response"""
+
+    data: Run
+    base_resp: StreamedRunBaseResp
 
 
 class RunCreateResponse(BareResponse, Run):
@@ -270,7 +310,7 @@ class RunStep(BaseModel):
     """Run Step"""
 
     id: str
-    object: Literal["thread.run.step"]
+    object: Literal["thread.run.step", "run step"]
     run_id: str
     assistant_id: str
     thread_id: str
@@ -283,7 +323,7 @@ class RunStep(BaseModel):
     completed_at: Optional[NonNegativeInt] = None
     last_error: Optional[RunError] = None
     step_details: RunStepDetail
-    base_resp: Dict
+    base_resp: Optional[Dict] = None
 
 
 class RunStepRetrieveResponse(BareResponse, RunStep):
@@ -295,3 +335,10 @@ class RunStepListResponse(BareResponse):
 
     object: Literal["list"]
     data: List[RunStep]
+
+
+class StreamedRunStepResponse(BaseModel):
+    """Streamed Run Step Response"""
+
+    data: RunStep
+    base_resp: StreamedRunBaseResp

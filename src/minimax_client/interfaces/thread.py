@@ -1,6 +1,7 @@
 """thread.py"""
 
-from typing import Any, Dict, List, Literal, Optional
+import json
+from typing import Any, AsyncGenerator, Dict, Generator, List, Literal, Optional, Union
 
 import httpx
 
@@ -16,6 +17,9 @@ from minimax_client.entities.thread import (
     RunStepRetrieveResponse,
     RunSubmitToolOutputsResponse,
     RunUpdateResponse,
+    StreamedRunMessageResponse,
+    StreamedRunResponse,
+    StreamedRunStepResponse,
     ThreadCreateResponse,
     ThreadRetrieveResponse,
     ThreadUpdateResponse,
@@ -361,7 +365,7 @@ class Runs(BaseSyncInterface):
                 "abab5.5s-chat-240123",
             ]
         ] = None,
-        tools: Optional[List] = None,
+        tools: Optional[List[Dict[str, Union[str, Dict]]]] = None,
         metadata: Optional[Dict[str, str]] = None,
     ) -> RunCreateResponse:
         """
@@ -382,7 +386,7 @@ class Runs(BaseSyncInterface):
                 optional
             ):
                 The model to use for the run. Defaults to None.
-            tools (Optional[List], optional):
+            tools (Optional[List[Dict[str, Union[str, Dict]]]], optional):
                 The tools to use for the run. Defaults to None.
             metadata (Optional[Dict[str, str]], optional):
                 The metadata of the run. Defaults to None.
@@ -410,6 +414,108 @@ class Runs(BaseSyncInterface):
         resp = self.client.post(url=f"{self.url_path}/create", json=json_body)
 
         return RunCreateResponse(**resp.json())
+
+    def stream(  # noqa: C901
+        self,
+        *,
+        stream_mode: Literal[1, 2],
+        thread_id: str,
+        assistant_id: str,
+        messages: List[Dict[str, Union[int, str, List[str], Dict]]],
+        model: Optional[
+            Literal[
+                "abab6-chat",
+                "abab5.5-chat",
+                "abab5.5-chat-240131",
+                "abab5.5s-chat",
+                "abab5.5s-chat-240123",
+            ]
+        ] = None,
+        t2a_option: Optional[Dict[str, str]] = None,
+        instructions: Optional[str] = None,
+        tools: Optional[List[Dict[str, Union[str, Dict]]]] = None,
+        metadata: Optional[Dict[str, str]] = None,
+    ) -> Generator[
+        Union[StreamedRunMessageResponse, StreamedRunStepResponse, StreamedRunResponse],
+        None,
+        None,
+    ]:
+        """
+        Create a stream run
+
+        Args:
+            stream_mode (Literal[1, 2]):
+                The stream mode to use.
+                1 for TEXT_STREAM,
+                2 for TEXT_AND_AUDIO_STREAM (In this mode, the input could be audio)
+            thread_id (str): The ID of the thread to create the run for
+            assistant_id (str): The ID of the assistant to run
+            messages (List[Dict[str, Union[int, str, List[str], Dict]]]):
+                The messages to use for the run
+            model (
+                Optional[
+                    Literal[
+                        "abab6-chat", "abab5.5-chat", "abab5.5-chat-240131",
+                        "abab5.5s-chat", "abab5.5s-chat-240123"
+                    ]
+                ]
+            ):
+                The model to use for the run.
+                If not specified (ie. None), the model of the assistant will be used.
+            t2a_option (Optional[Dict[str, str]], optional):
+                T2A option to use for the run. Defaults to None.
+            instructions (Optional[str], optional):
+                The instructions of the run. Defaults to None.
+            tools (Optional[List[Dict[str, Union[str, Dict]]]], optional):
+                The tools to use for the run. Defaults to None.
+            metadata (Optional[Dict[str, str]], optional):
+                The metadata of the run. Defaults to None.
+
+        Returns:
+            Generator[Union[
+                StreamedRunMessageResponse, StreamedRunStepResponse, StreamedRunResponse
+            ], None, None]: The response from the API
+        """
+        json_body = {
+            "stream": stream_mode,
+            "thread_id": thread_id,
+            "assistant_id": assistant_id,
+            "messages": messages,
+        }
+
+        if model:
+            json_body["model"] = model
+
+        if t2a_option:
+            json_body["t2a_option"] = t2a_option
+
+        if instructions:
+            json_body["instructions"] = instructions
+
+        if tools:
+            json_body["tools"] = tools
+
+        if metadata:
+            json_body["metadata"] = metadata
+
+        with self.client.stream(
+            method="post", url=f"{self.url_path}/create_stream", json=json_body
+        ) as resp:
+            for data_text in resp.iter_text():
+                if not data_text.startswith("data:"):
+                    continue
+
+                data_json = json.loads(data_text.split("data: ", 2)[1])
+
+                if not data_json.get("data"):
+                    continue
+
+                if (object_tag := data_json["data"]["object"]) == "run":
+                    yield StreamedRunResponse(**data_json)
+                elif object_tag == "message":
+                    yield StreamedRunMessageResponse(**data_json)
+                elif object_tag == "run step":
+                    yield StreamedRunStepResponse(**data_json)
 
     def retrieve(self, run_id: str, thread_id: str) -> RunRetrieveResponse:
         """
@@ -559,7 +665,7 @@ class AsyncRuns(BaseAsyncInterface, Runs):
                 "abab5.5s-chat-240123",
             ]
         ] = None,
-        tools: Optional[List] = None,
+        tools: Optional[List[Dict[str, Union[str, Dict]]]] = None,
         metadata: Optional[Dict[str, str]] = None,
     ) -> RunCreateResponse:
         """
@@ -580,7 +686,7 @@ class AsyncRuns(BaseAsyncInterface, Runs):
                 optional
             ):
                 The model to use for the run. Defaults to None.
-            tools (Optional[List], optional):
+            tools (Optional[List[Dict[str, Union[str, Dict]]]], optional):
                 The tools to use for the run. Defaults to None.
             metadata (Optional[Dict[str, str]], optional):
                 The metadata of the run. Defaults to None.
@@ -608,6 +714,107 @@ class AsyncRuns(BaseAsyncInterface, Runs):
         resp = await self.client.post(url=f"{self.url_path}/create", json=json_body)
 
         return RunCreateResponse(**resp.json())
+
+    async def stream(  # noqa: C901
+        self,
+        *,
+        stream_mode: Literal[1, 2],
+        thread_id: str,
+        assistant_id: str,
+        messages: List[Dict[str, Union[int, str, List[str], Dict]]],
+        model: Optional[
+            Literal[
+                "abab6-chat",
+                "abab5.5-chat",
+                "abab5.5-chat-240131",
+                "abab5.5s-chat",
+                "abab5.5s-chat-240123",
+            ]
+        ] = None,
+        t2a_option: Optional[Dict[str, str]] = None,
+        instructions: Optional[str] = None,
+        tools: Optional[List[Dict[str, Union[str, Dict]]]] = None,
+        metadata: Optional[Dict[str, str]] = None,
+    ) -> AsyncGenerator[
+        Union[StreamedRunMessageResponse, StreamedRunStepResponse, StreamedRunResponse],
+        None,
+    ]:
+        """
+        Create a stream run
+
+        Args:
+            stream_mode (Literal[1, 2]):
+                The stream mode to use.
+                1 for TEXT_STREAM,
+                2 for TEXT_AND_AUDIO_STREAM (In this mode, the input could be audio)
+            thread_id (str): The ID of the thread to create the run for
+            assistant_id (str): The ID of the assistant to run
+            messages (List[Dict[str, Union[int, str, List[str], Dict]]]):
+                The messages to use for the run
+            model (
+                Optional[
+                    Literal[
+                        "abab6-chat", "abab5.5-chat", "abab5.5-chat-240131",
+                        "abab5.5s-chat", "abab5.5s-chat-240123"
+                    ]
+                ]
+            ):
+                The model to use for the run.
+                If not specified (ie. None), the model of the assistant will be used.
+            t2a_option (Optional[Dict[str, str]], optional):
+                T2A option to use for the run. Defaults to None.
+            instructions (Optional[str], optional):
+                The instructions of the run. Defaults to None.
+            tools (Optional[List[Dict[str, Union[str, Dict]]]], optional):
+                The tools to use for the run. Defaults to None.
+            metadata (Optional[Dict[str, str]], optional):
+                The metadata of the run. Defaults to None.
+
+        Returns:
+            AsyncGenerator[Union[
+                StreamedRunMessageResponse, StreamedRunStepResponse, StreamedRunResponse
+            ], None]: The response from the API
+        """
+        json_body = {
+            "stream": stream_mode,
+            "thread_id": thread_id,
+            "assistant_id": assistant_id,
+            "messages": messages,
+        }
+
+        if model:
+            json_body["model"] = model
+
+        if t2a_option:
+            json_body["t2a_option"] = t2a_option
+
+        if instructions:
+            json_body["instructions"] = instructions
+
+        if tools:
+            json_body["tools"] = tools
+
+        if metadata:
+            json_body["metadata"] = metadata
+
+        async with self.client.stream(
+            method="post", url=f"{self.url_path}/create_stream", json=json_body
+        ) as resp:
+            for data_text in resp.iter_text():
+                if not data_text.startswith("data:"):
+                    continue
+
+                data_json = json.loads(data_text.split("data: ", 2)[1])
+
+                if not data_json.get("data"):
+                    continue
+
+                if (object_tag := data_json["data"]["object"]) == "run":
+                    yield StreamedRunResponse(**data_json)
+                elif object_tag == "message":
+                    yield StreamedRunMessageResponse(**data_json)
+                elif object_tag == "run step":
+                    yield StreamedRunStepResponse(**data_json)
 
     async def retrieve(self, run_id: str, thread_id: str) -> RunRetrieveResponse:
         """

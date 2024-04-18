@@ -114,13 +114,13 @@ class ChatCompletions(BaseSyncInterface):
             if resp.status_code != HTTPStatus.OK:
                 raise Exception(f"status: {resp.status_code}; {resp.text}")
 
-            for data in resp.iter_text():
-                json_body = json.loads(data.split("data: ", 2)[1])
+            for data_text in resp.iter_text():
+                data_json = json.loads(data_text.split("data: ", 2)[1])
 
-                yield ChatCompletionResponse(**json_body)
+                yield ChatCompletionResponse(**data_json)
 
                 # If the stream is finished, break out of the loop
-                if "finish_reason" in json_body["choices"][0]:
+                if "finish_reason" in data_json["choices"][0]:
                     break
 
 
