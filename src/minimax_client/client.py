@@ -8,6 +8,7 @@ import httpx
 from dotenv import find_dotenv, load_dotenv
 
 from minimax_client.interfaces.assistant import Assistant, AsyncAssistant
+from minimax_client.interfaces.audio import AsyncAudio, Audio
 from minimax_client.interfaces.chat_completion import AsyncChat, Chat
 from minimax_client.interfaces.embedding import AsyncEmbedding, Embedding
 from minimax_client.interfaces.file import AsyncFiles, Files
@@ -82,6 +83,7 @@ class MiniMax(BaseMiniMaxClient):
 
     http_client: httpx.Client
     assistants: Assistant
+    audio: Audio
     chat: Chat
     embeddings: Embedding
     files: Files
@@ -92,6 +94,7 @@ class MiniMax(BaseMiniMaxClient):
     def __init__(self, *, api_key: Optional[str] = None, timeout: float = 60) -> None:
         super().__init__(api_key=api_key, timeout=timeout)
         self.assistants = Assistant(http_client=self.http_client)
+        self.audio = Audio(http_client=self.http_client)
         self.chat = Chat(http_client=self.http_client)
         self.embeddings = Embedding(http_client=self.http_client)
         self.files = Files(http_client=self.http_client)
@@ -118,6 +121,7 @@ class MiniMax(BaseMiniMaxClient):
         return httpx.Client(
             base_url=BASE_URL,
             headers={"Authorization": f"Bearer {self.api_key}"},
+            params={"GroupId": self.group_id},
             timeout=self.timeout,
         )
 
@@ -127,6 +131,7 @@ class AsyncMiniMax(BaseMiniMaxClient):
 
     http_client: httpx.AsyncClient
     assistants: AsyncAssistant
+    audio: AsyncAudio
     chat: AsyncChat
     embeddings: AsyncEmbedding
     files: AsyncFiles
@@ -137,6 +142,7 @@ class AsyncMiniMax(BaseMiniMaxClient):
     def __init__(self, *, api_key: Optional[str] = None, timeout: float = 60) -> None:
         super().__init__(api_key=api_key, timeout=timeout)
         self.assistants = AsyncAssistant(http_client=self.http_client)
+        self.audio = AsyncAudio(http_client=self.http_client)
         self.chat = AsyncChat(http_client=self.http_client)
         self.embeddings = AsyncEmbedding(http_client=self.http_client)
         self.files = AsyncFiles(http_client=self.http_client)

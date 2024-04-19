@@ -800,7 +800,7 @@ class AsyncRuns(BaseAsyncInterface, Runs):
         async with self.client.stream(
             method="post", url=f"{self.url_path}/create_stream", json=json_body
         ) as resp:
-            for data_text in resp.iter_text():
+            async for data_text in resp.aiter_text():
                 if not data_text.startswith("data:"):
                     continue
 

@@ -2,7 +2,7 @@
 
 from typing import List, Optional
 
-from pydantic import BaseModel, NonNegativeInt
+from pydantic import BaseModel, HttpUrl, NonNegativeInt
 
 from minimax_client.entities.common import BareResponse
 
@@ -24,7 +24,7 @@ class File(BaseModel):
     created_at: int
     filename: str
     purpose: str
-    download_url: Optional[str] = None
+    download_url: Optional[HttpUrl] = None
 
 
 class FileCreateResponse(BareResponse):
