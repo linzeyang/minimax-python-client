@@ -38,12 +38,16 @@ class Audio(BaseSyncInterface):
 
         Args:
             text (str): The text to synthesize. Should be < 500 characters.
-            model (Literal["speech-01", "speech-02"]): The model to use.
+            model (Literal["speech-01", "speech-02"]):
+                The model to use.
+                "speech-01" is suited in Chinese cases;
+                "speech-02" supports Chinese, English, CN/EN mix, Japanese and Korean.
             voice_id (Optional[str], optional):
                 The ID of the voice to use. eg. "male-qn-qingse", "female-shaonv"
+                Could be one of preset IDs from MiniMax, or one out of voice cloning.
             timber_weights (Optional[List[Dict[str, Union[str, int]]]], optional):
                 Weights info of mixture of voices.
-                If specified, `voice_id` will be ignored.
+                If `timber_weights` is specified, `voice_id` will be ignored.
                 Defaults to None.
             speed (float):
                 The speed of the synthesized voice. Should be in range [0.5, 2].
@@ -55,7 +59,7 @@ class Audio(BaseSyncInterface):
                 The output format of the synthesized voice. Defaults to "mp3".
             pitch (int):
                 The pitch of the synthesized voice. Should be in range [-12, 12].
-                Defaults to 0.
+                Defaults to 0 (which means the original pitch).
             char_to_pitch (Optional[List[str]], optional):
                 List of rules to replace tones/symbols. One string per rule.
                 eg. "燕少飞/(yan4)(shao3)(fei1)", "omg/oh my god", "=/等于"
@@ -108,12 +112,16 @@ class Audio(BaseSyncInterface):
 
         Args:
             text (str): The text to synthesize. Should be < 50,000 characters.
-            model (Literal["speech-01", "speech-02"]): The model to use.
+            model (Literal["speech-01", "speech-02"]):
+                The model to use.
+                "speech-01" is suited in Chinese cases;
+                "speech-02" supports Chinese, English, CN/EN mix, Japanese and Korean.
             voice_id (Optional[str], optional):
                 The ID of the voice to use. eg. "male-qn-qingse", "female-shaonv"
+                Could be one of preset IDs from MiniMax, or one out of voice cloning.
             timber_weights (Optional[List[Dict[str, Union[str, int]]]], optional):
                 Weights info of mixture of voices.
-                If specified, `voice_id` will be ignored.
+                If `timber_weights` is specified, `voice_id` will be ignored.
                 Defaults to None.
             speed (float):
                 The speed of the synthesized voice. Should be in range [0.5, 2].
@@ -125,7 +133,7 @@ class Audio(BaseSyncInterface):
                 The output format of the synthesized voice. Defaults to "mp3".
             pitch (int):
                 The pitch of the synthesized voice. Should be in range [-12, 12].
-                Defaults to 0.
+                Defaults to 0 (which means the original pitch).
             audio_sample_rate (Literal[16_000, 24_000, 32_000]):
                 The sample rate of the synthesized voice. Defaults to 32,000.
             bitrate (Literal[32_000, 64_000, 128_000]):
@@ -188,6 +196,7 @@ class Audio(BaseSyncInterface):
                 The model to use. Only `speech-01` is supported.
             voice_id (Optional[str], optional):
                 The ID of the voice to use. eg. "male-qn-qingse", "female-shaonv"
+                Could be one of preset IDs from MiniMax, or one out of voice cloning.
             speed (float):
                 The speed of the synthesized voice. Should be in range [0.5, 2].
                 Defaults to 1.0.
@@ -198,7 +207,7 @@ class Audio(BaseSyncInterface):
                 The output format of the synthesized voice. Defaults to "mp3".
             pitch (int):
                 The pitch of the synthesized voice. Should be in range [-12, 12].
-                Defaults to 0.
+                Defaults to 0 (which means the original pitch).
             audio_sample_rate (Literal[16_000, 24_000]):
                 The sample rate of the synthesized voice. Defaults to 24,000.
             bitrate (Literal[32_900, 64_900, 128_900]):
@@ -241,7 +250,7 @@ class Audio(BaseSyncInterface):
         Retrieve the status of a Text to Speech Large request.
 
         Args:
-            task_id (int): The task_id from the response when creating the request
+            task_id (int): The task_id from the response which creates the request.
 
         Returns:
             AudioSpeechLargeStatusResponse: The response from the API
@@ -277,9 +286,10 @@ class Audio(BaseSyncInterface):
                 The model to use. Only `speech-01` is supported.
             voice_id (Optional[str], optional):
                 The ID of the voice to use. eg. "male-qn-qingse", "female-shaonv"
+                Could be one of preset IDs from MiniMax, or one out of voice cloning.
             timber_weights (Optional[List[Dict[str, Union[str, int]]]], optional):
                 Weights info of mixture of voices.
-                If specified, `voice_id` will be ignored.
+                If `timber_weights` is specified, `voice_id` will be ignored.
                 Defaults to None.
             speed (float):
                 The speed of the synthesized voice. Should be in range [0.5, 2].
@@ -291,7 +301,7 @@ class Audio(BaseSyncInterface):
                 The output format of the synthesized voice. Defaults to "mp3".
             pitch (int):
                 The pitch of the synthesized voice. Should be in range [-12, 12].
-                Defaults to 0.
+                Defaults to 0 (which means the original pitch).
             audio_sample_rate (Literal[16_000, 24_000, 32_000]):
                 The sample rate of the synthesized voice. Defaults to 32,000.
             bitrate (Literal[32_000, 64_000, 128_000]):
@@ -388,12 +398,16 @@ class AsyncAudio(BaseAsyncInterface, Audio):
 
         Args:
             text (str): The text to synthesize. Should be < 500 characters.
-            model (Literal["speech-01", "speech-02"]): The model to use.
+            model (Literal["speech-01", "speech-02"]):
+                The model to use.
+                "speech-01" is suited in Chinese cases;
+                "speech-02" supports Chinese, English, CN/EN mix, Japanese and Korean.
             voice_id (Optional[str], optional):
                 The ID of the voice to use. eg. "male-qn-qingse", "female-shaonv"
+                Could be one of preset IDs from MiniMax, or one out of voice cloning.
             timber_weights (Optional[List[Dict[str, Union[str, int]]]], optional):
                 Weights info of mixture of voices.
-                If specified, `voice_id` will be ignored.
+                If `timber_weights` is specified, `voice_id` will be ignored.
                 Defaults to None.
             speed (float):
                 The speed of the synthesized voice. Should be in range [0.5, 2].
@@ -405,7 +419,7 @@ class AsyncAudio(BaseAsyncInterface, Audio):
                 The output format of the synthesized voice. Defaults to "mp3".
             pitch (int):
                 The pitch of the synthesized voice. Should be in range [-12, 12].
-                Defaults to 0.
+                Defaults to 0 (which means the original pitch).
             char_to_pitch (Optional[List[str]], optional):
                 List of rules to replace tones/symbols. One string per rule.
                 eg. "燕少飞/(yan4)(shao3)(fei1)", "omg/oh my god", "=/等于"
@@ -458,12 +472,16 @@ class AsyncAudio(BaseAsyncInterface, Audio):
 
         Args:
             text (str): The text to synthesize. Should be < 50,000 characters.
-            model (Literal["speech-01", "speech-02"]): The model to use.
+            model (Literal["speech-01", "speech-02"]):
+                The model to use.
+                "speech-01" is suited in Chinese cases;
+                "speech-02" supports Chinese, English, CN/EN mix, Japanese and Korean.
             voice_id (Optional[str], optional):
                 The ID of the voice to use. eg. "male-qn-qingse", "female-shaonv"
+                Could be one of preset IDs from MiniMax, or one out of voice cloning.
             timber_weights (Optional[List[Dict[str, Union[str, int]]]], optional):
                 Weights info of mixture of voices.
-                If specified, `voice_id` will be ignored.
+                If `timber_weights` is specified, `voice_id` will be ignored.
                 Defaults to None.
             speed (float):
                 The speed of the synthesized voice. Should be in range [0.5, 2].
@@ -475,7 +493,7 @@ class AsyncAudio(BaseAsyncInterface, Audio):
                 The output format of the synthesized voice. Defaults to "mp3".
             pitch (int):
                 The pitch of the synthesized voice. Should be in range [-12, 12].
-                Defaults to 0.
+                Defaults to 0 (which means the original pitch).
             audio_sample_rate (Literal[16_000, 24_000, 32_000]):
                 The sample rate of the synthesized voice. Defaults to 32,000.
             bitrate (Literal[32_000, 64_000, 128_000]):
@@ -538,6 +556,7 @@ class AsyncAudio(BaseAsyncInterface, Audio):
                 The model to use. Only `speech-01` is supported.
             voice_id (Optional[str], optional):
                 The ID of the voice to use. eg. "male-qn-qingse", "female-shaonv"
+                Could be one of preset IDs from MiniMax, or one out of voice cloning.
             speed (float):
                 The speed of the synthesized voice. Should be in range [0.5, 2].
                 Defaults to 1.0.
@@ -548,7 +567,7 @@ class AsyncAudio(BaseAsyncInterface, Audio):
                 The output format of the synthesized voice. Defaults to "mp3".
             pitch (int):
                 The pitch of the synthesized voice. Should be in range [-12, 12].
-                Defaults to 0.
+                Defaults to 0 (which means the original pitch).
             audio_sample_rate (Literal[16_000, 24_000]):
                 The sample rate of the synthesized voice. Defaults to 24,000.
             bitrate (Literal[32_900, 64_900, 128_900]):
@@ -593,7 +612,7 @@ class AsyncAudio(BaseAsyncInterface, Audio):
         Retrieve the status of a Text to Speech Large request.
 
         Args:
-            task_id (int): The task_id from the response when creating the request
+            task_id (int): The task_id from the response which creates the request.
 
         Returns:
             AudioSpeechLargeStatusResponse: The response from the API
@@ -629,9 +648,10 @@ class AsyncAudio(BaseAsyncInterface, Audio):
                 The model to use. Only `speech-01` is supported.
             voice_id (Optional[str], optional):
                 The ID of the voice to use. eg. "male-qn-qingse", "female-shaonv"
+                Could be one of preset IDs from MiniMax, or one out of voice cloning.
             timber_weights (Optional[List[Dict[str, Union[str, int]]]], optional):
                 Weights info of mixture of voices.
-                If specified, `voice_id` will be ignored.
+                If `timber_weights` is specified, `voice_id` will be ignored.
                 Defaults to None.
             speed (float):
                 The speed of the synthesized voice. Should be in range [0.5, 2].
@@ -643,7 +663,7 @@ class AsyncAudio(BaseAsyncInterface, Audio):
                 The output format of the synthesized voice. Defaults to "mp3".
             pitch (int):
                 The pitch of the synthesized voice. Should be in range [-12, 12].
-                Defaults to 0.
+                Defaults to 0 (which means the original pitch).
             audio_sample_rate (Literal[16_000, 24_000, 32_000]):
                 The sample rate of the synthesized voice. Defaults to 32,000.
             bitrate (Literal[32_000, 64_000, 128_000]):

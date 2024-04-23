@@ -23,6 +23,12 @@ The current implementation includes the following official APIs offered by MiniM
   - Message
   - Run
   - Run Step
+- Audio
+  - T2A
+  - T2A Pro
+  - T2A Large
+  - T2A Stream
+  - Voice Cloning
 
 ## Prerequisites
 
@@ -500,4 +506,56 @@ for part in client.threads.runs.stream(
 ):
     print(part.data.model_dump())
     print("\n-----\n")
+```
+
+#### 2.17 Sync T2A
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+resp = client.audio.speech(
+    text="One apple a day keeps the doctor away",
+    model="speech-02",
+    timber_weights=[
+        {
+            "voice_id": "male-qn-qingse",
+            "weight": 1,
+        },
+        {
+            "voice_id": "presenter_female",
+            "weight": 1,
+        },
+    ],
+    vol=1,
+    pitch=2,
+)
+
+if isinstance(resp, bytes):
+    with open("speech.mp3", "wb") as f:
+        f.write(resp)
+else:
+    print(resp.model_dump())
+```
+
+#### 2.18 Sync Voice Cloning
+
+```python
+from minimax_client import MiniMax
+
+
+client = MiniMax(api_key="<YOUR_API_KEY>")
+
+resp = client.files.create(filepath="original_voice.mp3", purpose="voice_clone")
+
+file_id = resp.file.file_id
+
+resp = client.audio.voice_cloning(
+    file_id=file_id,
+    voice_id="cloned12345678",
+)
+
+print(resp.model_dump())
 ```
