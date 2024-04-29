@@ -2,7 +2,7 @@
 
 import json
 from http import HTTPStatus
-from typing import Any, AsyncGenerator, Dict, Generator, List, Optional, Union
+from typing import Any, AsyncGenerator, Dict, Generator, List, Literal, Optional, Union
 
 import httpx
 
@@ -19,12 +19,18 @@ class ChatCompletions(BaseSyncInterface):
         self,
         *,
         messages: List[Dict[str, Union[str, List[Dict[str, Any]]]]],
-        model: str = "abab5.5s-chat",
+        model: Literal[
+            "abab5.5s-chat",
+            "abab5.5-chat",
+            "abab6-chat",
+            "abab6.5s-chat",
+            "abab6.5-chat",
+        ] = "abab5.5s-chat",
         max_tokens: int = 256,
         temperature: float = 0.9,
         top_p: float = 0.95,
         stream: bool = False,
-        tool_choice: str = "auto",
+        tool_choice: Literal["none", "auto"] = "auto",
         tools: Optional[List[Dict[str, Union[str, Dict[str, str]]]]] = None,
     ) -> Union[ChatCompletionResponse, Generator[ChatCompletionResponse, None, None]]:
         """
@@ -38,17 +44,18 @@ class ChatCompletions(BaseSyncInterface):
             messages (list[dict[str, Union[str, list[dict[str, Any]]]]]):
                 The messages to generate responses to
             model (str, optional):
-                The chatbot model to use. Defaults to "abab5.5s-chat".
+                The language model to use. Defaults to "abab5.5s-chat".
             max_tokens (int, optional):
                 The maximum number of tokens to generate. Defaults to 256.
             temperature (float, optional):
-                The temperature of the chatbot's responses. Defaults to 0.9.
+                The temperature of the responses. Defaults to 0.9.
             top_p (float, optional):
-                The top_p of the chatbot's responses. Defaults to 0.95.
+                The top_p of the responses. Defaults to 0.95.
             stream (bool, optional):
                 Whether to stream the responses or not. Defaults to False.
             tool_choice (str, optional):
-                The tool choice mode. Defaults to "auto".
+                The tool choice mode. Could be either "none" or "auto".
+                Defaults to "auto".
             tools (Optional[list[dict[str, Union[str, dict[str, str]]]]], optional):
                 The tools to use. Defaults to None.
 
@@ -131,12 +138,18 @@ class AsyncChatCompletions(BaseAsyncInterface, ChatCompletions):
         self,
         *,
         messages: List[Dict[str, Union[str, List[Dict[str, Any]]]]],
-        model: str = "abab5.5s-chat",
+        model: Literal[
+            "abab5.5s-chat",
+            "abab5.5-chat",
+            "abab6-chat",
+            "abab6.5s-chat",
+            "abab6.5-chat",
+        ] = "abab5.5s-chat",
         max_tokens: int = 256,
         temperature: float = 0.9,
         top_p: float = 0.95,
         stream: bool = False,
-        tool_choice: str = "auto",
+        tool_choice: Literal["none", "auto"] = "auto",
         tools: Optional[List[Dict[str, Union[str, Dict[str, str]]]]] = None,
     ) -> Union[ChatCompletionResponse, AsyncGenerator[ChatCompletionResponse, None]]:
         """
@@ -146,17 +159,18 @@ class AsyncChatCompletions(BaseAsyncInterface, ChatCompletions):
             messages (list[dict[str, Union[str, list[dict[str, Any]]]]]):
                 The messages to generate responses to
             model (str, optional):
-                The chatbot model to use. Defaults to "abab5.5s-chat".
+                The language model to use. Defaults to "abab5.5s-chat".
             max_tokens (int, optional):
                 The maximum number of tokens to generate. Defaults to 256.
             temperature (float, optional):
-                The temperature of the chatbot's responses. Defaults to 0.9.
+                The temperature of the responses. Defaults to 0.9.
             top_p (float, optional):
-                The top_p of the chatbot's responses. Defaults to 0.95.
+                The top_p of the responses. Defaults to 0.95.
             stream (bool, optional):
                 Whether to stream the responses or not. Defaults to False.
             tool_choice (str, optional):
-                The tool choice mode. Defaults to "auto".
+                The tool choice mode. Could be either "none" or "auto".
+                Defaults to "auto".
             tools (Optional[list[dict[str, Union[str, dict[str, str]]]]], optional):
                 The tools to use. Defaults to None.
 

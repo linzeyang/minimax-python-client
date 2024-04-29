@@ -51,6 +51,8 @@ class ChatCompletionResponse(BareResponse):
     id: str
     choices: List[Choice]
     created: int
-    model: Literal["abab5.5s-chat", "abab5.5-chat", "abab6-chat"]
+    model: Literal[
+        "abab5.5s-chat", "abab5.5-chat", "abab6-chat", "abab6.5s-chat", "abab6.5-chat"
+    ]
     object: Literal["chat.completion", "chat.completion.chunk"]
     usage: Optional[Usage] = None
