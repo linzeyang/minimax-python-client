@@ -12,7 +12,7 @@ dependencies = [
 requires-python = ">=3.8"
 readme = "README.md"
 license = {text = "MIT"}
-keywords = ["web", "api", "llm"]
+keywords = ["web", "ai", "api", "llm", "nlp", "minimax"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: MIT License",
@@ -40,7 +40,7 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/linzeyang/minimax-python-client"
+Homepage = "https://pypi.org/project/minimax-client/"
 Repository = "https://github.com/linzeyang/minimax-python-client"
 
 [build-system]
