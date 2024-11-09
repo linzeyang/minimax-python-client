@@ -2,16 +2,12 @@
 name = "minimax-client"
 description = "An (unofficial) python native client for easy interaction with MiniMax Open Platform"
 authors = [
-    {name = "Zeyang Lin", email = "4020306+linzeyang@users.noreply.github.com"},
+    { name = "Zeyang Lin", email = "4020306+linzeyang@users.noreply.github.com" },
 ]
-dependencies = [
-    "httpx<1",
-    "python-dotenv<2",
-    "pydantic<3",
-]
+dependencies = ["httpx<1", "python-dotenv<2", "pydantic<3"]
 requires-python = ">=3.8"
 readme = "README.md"
-license = {text = "MIT"}
+license = { text = "MIT" }
 keywords = ["web", "ai", "api", "llm", "nlp", "minimax"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -31,14 +27,12 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Internet :: WWW/HTTP",
-    "Typing :: Typed"
+    "Typing :: Typed",
 ]
 dynamic = ["version"]
 
 [project.optional-dependencies]
-dev = [
-    "pytest>=8.3,<9",
-]
+dev = ["pytest>=8.3,<9"]
 
 [project.urls]
 Homepage = "https://pypi.org/project/minimax-client/"
@@ -59,10 +53,10 @@ target-version = ['py310']
 
 [tool.coverage.run]
 branch = true
-source = [ "./" ]
+source = ["./"]
 
 [tool.coverage.report]
-omit = [ "test_*.py", "conftest.py" ]
+omit = ["test_*.py", "conftest.py"]
 
 [tool.isort]
 py_version = 310
@@ -73,8 +67,8 @@ max-line-length = "88"
 
 [tool.pytest.ini_options]
 minversion = "8.0"
-testpaths = [ "./tests/" ]
-python_files = [ "test_*.py" ]
+testpaths = ["./tests/"]
+python_files = ["test_*.py"]
 console_output_style = "count"
 
 [tool.ruff]
