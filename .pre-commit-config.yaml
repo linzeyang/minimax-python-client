@@ -17,20 +17,20 @@ repos:
       - id: requirements-txt-fixer
       - id: trailing-whitespace
   - repo: https://github.com/psf/black
-    rev: 24.10.0
+    rev: 25.1.0
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/isort
-    rev: 5.13.2
+    rev: 6.0.0
     hooks:
       - id: isort
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.0
+    rev: v0.9.3
     hooks:
       - id: ruff
         args: ["--config=./pyproject.toml"]
   - repo: https://github.com/pdm-project/pdm
-    rev: 2.22.1
+    rev: 2.22.3
     hooks:
       - id: pdm-lock-check
   - repo: https://github.com/asottile/pyupgrade
@@ -38,14 +38,14 @@ repos:
     hooks:
     -   id: pyupgrade
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.43.0
+    rev: v0.44.0
     hooks:
       - id: markdownlint
         args: ["--disable", "MD013"]
       - id: markdownlint-fix
         args: ["--disable", "MD013"]
   - repo: https://github.com/jackdewinter/pymarkdown
-    rev: v0.9.26
+    rev: v0.9.27
     hooks:
       - id: pymarkdown
         args: ["-d", "MD013,MD041", "scan"]
