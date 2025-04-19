@@ -5,7 +5,7 @@ authors = [
     { name = "Zeyang Lin", email = "4020306+linzeyang@users.noreply.github.com" },
 ]
 dependencies = ["httpx<1", "python-dotenv<2", "pydantic<3"]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 readme = "README.md"
 license = { text = "MIT" }
 keywords = ["web", "ai", "api", "llm", "nlp", "minimax"]
@@ -19,7 +19,6 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -49,7 +48,7 @@ distribution = true
 
 [tool.black]
 line-length = 88
-target-version = ['py310']
+target-version = ['py312']
 
 [tool.coverage.run]
 branch = true
@@ -59,7 +58,7 @@ source = ["./"]
 omit = ["test_*.py", "conftest.py"]
 
 [tool.isort]
-py_version = 310
+py_version = 312
 profile = "black"
 
 [tool.pylint.format]
@@ -74,7 +73,7 @@ console_output_style = "count"
 [tool.ruff]
 src = ["src"]
 line-length = 88
-target-version = "py310"
+target-version = "py312"
 output-format = "full"
 
 [tool.ruff.lint]

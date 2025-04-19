@@ -16,6 +16,17 @@ repos:
       - id: fix-byte-order-marker
       - id: requirements-txt-fixer
       - id: trailing-whitespace
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.19.1
+    hooks:
+    -   id: pyupgrade
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.6
+    hooks:
+      - id: ruff
+        args: ["--config=./pyproject.toml"]
+      - id: ruff-format
+        args: ["--config=./pyproject.toml"]
   - repo: https://github.com/psf/black
     rev: 25.1.0
     hooks:
@@ -24,19 +35,10 @@ repos:
     rev: 6.0.1
     hooks:
       - id: isort
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.0
-    hooks:
-      - id: ruff
-        args: ["--config=./pyproject.toml"]
   - repo: https://github.com/pdm-project/pdm
-    rev: 2.22.4
+    rev: 2.24.0
     hooks:
       - id: pdm-lock-check
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.19.1
-    hooks:
-    -   id: pyupgrade
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.44.0
     hooks:
