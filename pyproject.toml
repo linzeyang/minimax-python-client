@@ -82,3 +82,15 @@ ignore = []
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
+
+[tool.ty.environment]
+python-version = "3.12"
+
+[tool.ty.rules]
+missing-argument = "ignore"
+
+[tool.ty.src]
+root = "./src"
+
+[tool.ty.terminal]
+output-format = "full"
