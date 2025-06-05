@@ -31,7 +31,7 @@ classifiers = [
 dynamic = ["version"]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.3,<9"]
+dev = ["pytest>=8.4,<9"]
 
 [project.urls]
 Homepage = "https://pypi.org/project/minimax-client/"
