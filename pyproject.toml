@@ -85,12 +85,11 @@ ignore = []
 
 [tool.ty.environment]
 python-version = "3.12"
+root = ["./src"]
 
 [tool.ty.rules]
 missing-argument = "ignore"
-
-[tool.ty.src]
-root = "./src"
+possibly-unbound-attribute = "ignore"
 
 [tool.ty.terminal]
 output-format = "full"
