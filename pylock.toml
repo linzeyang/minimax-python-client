@@ -1,7 +1,7 @@
 lock-version = "1.0"
-requires-python = ">=3.9"
+requires-python = "<3.15,>=3.10"
 environments = [
-    "python_version >= \"3.9\"",
+    "python_version >= \"3.10\" and python_version < \"3.15\"",
 ]
 extras = ["dev"]
 dependency-groups = ["default"]
@@ -130,11 +130,11 @@ dependencies = [
 
 [[packages]]
 name = "idna"
-version = "3.10"
-requires-python = ">=3.6"
-sdist = {name = "idna-3.10.tar.gz", url = "https://mirror.zju.edu.cn/pypi/web/packages/f1/70/7703c29685631f5a7590aa73f1f1d3fa9a380e654b86af429e0934a32f7d/idna-3.10.tar.gz", hashes = {sha256 = "12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9"}}
+version = "3.11"
+requires-python = ">=3.8"
+sdist = {name = "idna-3.11.tar.gz", url = "https://mirror.zju.edu.cn/pypi/web/packages/6f/6d/0703ccc57f3a7233505399edb88de3cbd678da106337b9fcde432b65ed60/idna-3.11.tar.gz", hashes = {sha256 = "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"}}
 wheels = [
-    {name = "idna-3.10-py3-none-any.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl",hashes = {sha256 = "946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3"}},
+    {name = "idna-3.11-py3-none-any.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/0e/61/66938bbb5fc52dbdf84594873d5b51fb1f7c7794e9c0f5bd885f30bc507b/idna-3.11-py3-none-any.whl",hashes = {sha256 = "771a87f49d9defaf64091e6e6fe9c18d4833f140bd19464795bc32d966ca37ea"}},
 ]
 marker = "\"default\" in dependency_groups"
 
@@ -295,19 +295,6 @@ wheels = [
     {name = "pydantic_core-2.41.1-pp310-pypy310_pp73-musllinux_1_1_armv7l.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/35/74/70c1e225d67f7ef3fdba02c506d9011efaf734020914920b2aa3d1a45e61/pydantic_core-2.41.1-pp310-pypy310_pp73-musllinux_1_1_armv7l.whl",hashes = {sha256 = "300a9c162fea9906cc5c103893ca2602afd84f0ec90d3be36f4cc360125d22e1"}},
     {name = "pydantic_core-2.41.1-pp310-pypy310_pp73-musllinux_1_1_x86_64.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/c8/bf/dd4d21037c8bef0d8cce90a86a3f2dcb011c30086db2a10113c3eea23eba/pydantic_core-2.41.1-pp310-pypy310_pp73-musllinux_1_1_x86_64.whl",hashes = {sha256 = "e019167628f6e6161ae7ab9fb70f6d076a0bf0d55aa9b20833f86a320c70dd65"}},
     {name = "pydantic_core-2.41.1-pp310-pypy310_pp73-win_amd64.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/7e/78/3093b334e9c9796c8236a4701cd2ddef1c56fb0928fe282a10c797644380/pydantic_core-2.41.1-pp310-pypy310_pp73-win_amd64.whl",hashes = {sha256 = "13ab9cc2de6f9d4ab645a050ae5aee61a2424ac4d3a16ba23d4c2027705e0301"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-macosx_10_12_x86_64.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/aa/d2/90421a4749f15aa4f06dd1d25a6419b91b181ae7994a4e7c4ed0a6415057/pydantic_core-2.41.1-cp39-cp39-macosx_10_12_x86_64.whl",hashes = {sha256 = "10ce489cf09a4956a1549af839b983edc59b0f60e1b068c21b10154e58f54f80"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-macosx_11_0_arm64.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/39/6a/3b5c2ba43da5380f252b35f7e74851e1379f4935c8bccbbda05992b5fe4d/pydantic_core-2.41.1-cp39-cp39-macosx_11_0_arm64.whl",hashes = {sha256 = "ff548c908caffd9455fd1342366bcf8a1ec8a3fca42f35c7fc60883d6a901074"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/81/a9/050595183529316cf95d0f97662a4fe782dbea5f31dba0cf366015b67fad/pydantic_core-2.41.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",hashes = {sha256 = "3d43bf082025082bda13be89a5f876cc2386b7727c7b322be2d2b706a45cea8e"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-manylinux_2_17_armv7l.manylinux2014_armv7l.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/46/a8/846a8e466edd841c67f11f0ae738ca5c5d87968f6d8630bc449e2e6e11f2/pydantic_core-2.41.1-cp39-cp39-manylinux_2_17_armv7l.manylinux2014_armv7l.whl",hashes = {sha256 = "666aee751faf1c6864b2db795775dd67b61fdcf646abefa309ed1da039a97209"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/4c/dc/19d01747082daf3667f952b6deee73e9e63338caa9c61442558cbdf8c876/pydantic_core-2.41.1-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl",hashes = {sha256 = "b83aaeff0d7bde852c32e856f3ee410842ebc08bc55c510771d87dcd1c01e1ed"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/fa/99/0d4f031aeddf2cf03a5eb8eafde50147259067716c32174551b786aa72e1/pydantic_core-2.41.1-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl",hashes = {sha256 = "055c7931b0329cb8acde20cdde6d9c2cbc2a02a0a8e54a792cddd91e2ea92c65"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/09/7f/027061a060718733a6c016e7d4acc864c8bb69f0092d9b3da7e3888b102f/pydantic_core-2.41.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",hashes = {sha256 = "530bbb1347e3e5ca13a91ac087c4971d7da09630ef8febd27a20a10800c2d06d"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/3a/5e/791c16d5e2a0b394c2c236f7d2556dbc381f8666bc12db7d35dc051c67e3/pydantic_core-2.41.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.whl",hashes = {sha256 = "65a0ea16cfea7bfa9e43604c8bd726e63a3788b61c384c37664b55209fcb1d74"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-musllinux_1_1_aarch64.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/a3/99/2c7010145da82fdd30955c1c0e1e75723ca7aef32b52f2565383fd2347d2/pydantic_core-2.41.1-cp39-cp39-musllinux_1_1_aarch64.whl",hashes = {sha256 = "8fa93fadff794c6d15c345c560513b160197342275c6d104cc879f932b978afc"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-musllinux_1_1_armv7l.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/c6/df/b8f2ac7fa15479e989d0c2ea88e5e28eeb923096b2462804b9113bce51b5/pydantic_core-2.41.1-cp39-cp39-musllinux_1_1_armv7l.whl",hashes = {sha256 = "c8a1af9ac51969a494c6a82b563abae6859dc082d3b999e8fa7ba5ee1b05e8e8"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-musllinux_1_1_x86_64.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/60/e8/06387d852bf67402fb0129b3297aa0c358aa9647e59f795c0965a7bedefe/pydantic_core-2.41.1-cp39-cp39-musllinux_1_1_x86_64.whl",hashes = {sha256 = "30edab28829703f876897c9471a857e43d847b8799c3c9e2fbce644724b50aa4"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-win32.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/07/41/8964006fd8897df13cb0eec374bda053d1936cbc81315acdd755d85c99d5/pydantic_core-2.41.1-cp39-cp39-win32.whl",hashes = {sha256 = "84d0ff869f98be2e93efdf1ae31e5a15f0926d22af8677d51676e373abbfe57a"}},
-    {name = "pydantic_core-2.41.1-cp39-cp39-win_amd64.whl",url = "https://mirror.zju.edu.cn/pypi/web/packages/d3/c9/0f68c22ba0cac693326a7de73f04c7543886e0b240e2320f8ced861f0c3d/pydantic_core-2.41.1-cp39-cp39-win_amd64.whl",hashes = {sha256 = "b5674314987cdde5a5511b029fa5fb1556b3d147a367e01dd583b19cfa8e35df"}},
 ]
 marker = "\"default\" in dependency_groups"
 
@@ -458,7 +445,7 @@ dependencies = [
 ]
 
 [tool.pdm]
-hashes = {sha256 = "5c5a6eea678faef0f80701f64eab6a5fb8b6bb46bfeec961f2986285b483e847"}
+hashes = {sha256 = "16672fc08a1dd140f85d31e8eccaf083d725a28508dc87b3ad7d426f3211d567"}
 
 [[tool.pdm.targets]]
-requires_python = ">=3.9"
+requires_python = ">=3.10,<3.15"
