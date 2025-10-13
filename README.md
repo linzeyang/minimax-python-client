@@ -32,8 +32,8 @@ The current implementation includes the following official APIs offered by MiniM
 
 ## Prerequisites
 
-- Python >= 3.9
-- pip (or any other tool that does the same job)
+- Python >= 3.10
+- pip (or any other tool that does the same job, eg. uv)
 - Internet connection
 - An API KEY acquired from [MiniMax Open Platform](https://www.minimaxi.com/user-center/basic-information/interface-key)
 
