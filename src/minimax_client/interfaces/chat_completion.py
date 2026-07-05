@@ -4,7 +4,7 @@ import json
 from http import HTTPStatus
 from typing import Any, AsyncGenerator, Dict, Generator, List, Literal, Optional, Union
 
-import httpx
+import httpx2 as httpx
 
 from minimax_client.entities.chat_completion import ChatCompletionResponse
 from minimax_client.interfaces.base import BaseAsyncInterface, BaseSyncInterface
@@ -25,7 +25,7 @@ class ChatCompletions(BaseSyncInterface):
             "abab6-chat",
             "abab6.5s-chat",
             "abab6.5-chat",
-        ] = "abab5.5s-chat",
+        ] = "abab6.5s-chat",
         max_tokens: int = 256,
         temperature: float = 0.9,
         top_p: float = 0.95,
@@ -144,7 +144,7 @@ class AsyncChatCompletions(BaseAsyncInterface, ChatCompletions):
             "abab6-chat",
             "abab6.5s-chat",
             "abab6.5-chat",
-        ] = "abab5.5s-chat",
+        ] = "abab6.5s-chat",
         max_tokens: int = 256,
         temperature: float = 0.9,
         top_p: float = 0.95,

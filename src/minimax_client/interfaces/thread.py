@@ -3,7 +3,7 @@
 import json
 from typing import Any, AsyncGenerator, Dict, Generator, List, Literal, Optional, Union
 
-import httpx
+import httpx2 as httpx
 
 from minimax_client.entities.thread import (
     MessageCreateResponse,

@@ -2,7 +2,7 @@
 
 from typing import Dict, Literal, Optional, Union
 
-import httpx
+import httpx2 as httpx
 
 from minimax_client.entities.common import BareResponse
 from minimax_client.entities.fine_tuning import (

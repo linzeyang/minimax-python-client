@@ -4,7 +4,7 @@ import asyncio
 import os
 from typing import Optional
 
-import httpx
+import httpx2 as httpx
 from dotenv import find_dotenv, load_dotenv
 
 from minimax_client.interfaces.assistant import Assistant, AsyncAssistant

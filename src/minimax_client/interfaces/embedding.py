@@ -3,7 +3,7 @@
 from http import HTTPStatus
 from typing import List, Union
 
-import httpx
+import httpx2 as httpx
 
 from minimax_client.entities.embedding import EmbeddingResponse
 from minimax_client.interfaces.base import BaseAsyncInterface, BaseSyncInterface

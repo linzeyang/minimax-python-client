@@ -4,7 +4,7 @@ description = "An (unofficial) python native client for easy interaction with Mi
 authors = [
     { name = "Zeyang Lin", email = "4020306+linzeyang@users.noreply.github.com" },
 ]
-dependencies = ["httpx<1", "python-dotenv<2", "pydantic<3"]
+dependencies = ["httpx2>=2.5,<3", "python-dotenv>=1.2,<2", "pydantic>=2.13,<3"]
 requires-python = ">=3.10,<3.15"
 readme = "README.md"
 license = { text = "MIT" }
@@ -31,7 +31,7 @@ classifiers = [
 dynamic = ["version"]
 
 [project.optional-dependencies]
-dev = ["pytest>=9.0,<10"]
+dev = ["pytest>=9.1,<10"]
 
 [project.urls]
 Homepage = "https://pypi.org/project/minimax-client/"

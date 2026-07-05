@@ -3,7 +3,7 @@
 import os
 import unittest
 
-import httpx
+import httpx2 as httpx
 
 from minimax_client import AsyncMiniMax, MiniMax
 from minimax_client.interfaces.chat_completion import AsyncChat

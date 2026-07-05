@@ -2,7 +2,7 @@
 
 from typing import Any, Dict, List, Literal, Optional, Union
 
-import httpx
+import httpx2 as httpx
 
 from minimax_client.entities.assistant import (
     AssistantCreateResponse,
