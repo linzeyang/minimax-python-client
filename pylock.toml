@@ -1,7 +1,7 @@
 lock-version = "1.0"
-requires-python = "<3.15,>=3.10"
+requires-python = "<3.16,>=3.11"
 environments = [
-    "python_version >= \"3.10\" and python_version < \"3.15\"",
+    "python_version >= \"3.11\" and python_version < \"3.16\"",
 ]
 created-by = "pdm"
 [[packages]]
@@ -45,21 +45,6 @@ marker = "sys_platform == \"win32\""
 
 [packages.tool.pdm]
 dependencies = []
-
-[[packages]]
-name = "exceptiongroup"
-version = "1.3.1"
-requires-python = ">=3.7"
-sdist = {name = "exceptiongroup-1.3.1.tar.gz", url = "https://mirror.nju.edu.cn/pypi/web/packages/50/79/66800aadf48771f6b62f7eb014e352e5d06856655206165d775e675a02c9/exceptiongroup-1.3.1.tar.gz", hashes = {sha256 = "8b412432c6055b0b7d14c310000ae93352ed6754f70fa8f7c34141f91c4e3219"}}
-wheels = [
-    {name = "exceptiongroup-1.3.1-py3-none-any.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/8a/0e/97c33bf5009bdbac74fd2beace167cab3f978feb69cc36f1ef79360d6c4e/exceptiongroup-1.3.1-py3-none-any.whl",hashes = {sha256 = "a7a39a3bd276781e98394987d3a5701d0c4edffb633bb7a5144577f82c773598"}},
-]
-marker = "python_version < \"3.11\""
-
-[packages.tool.pdm]
-dependencies = [
-    "typing-extensions>=4.6.0; python_version < \"3.13\"",
-]
 
 [[packages]]
 name = "h11"
@@ -276,20 +261,6 @@ wheels = [
     {name = "pydantic_core-2.46.5-pp311-pypy311_pp73-musllinux_1_1_armv7l.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/c2/d7/ad493864a7fb21c0c4df98f965e2db430cb25a9d7369b5778d5016c09fd9/pydantic_core-2.46.5-pp311-pypy311_pp73-musllinux_1_1_armv7l.whl",hashes = {sha256 = "2d330aaba8621b1edcec8ae2c4050f63b84ccf6d98723a8f212e9684713abf0e"}},
     {name = "pydantic_core-2.46.5-pp311-pypy311_pp73-musllinux_1_1_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/02/8e/b41c84c913f29973a268e6c2b5bbf13c95adb9956c126d10da11ba3b2bef/pydantic_core-2.46.5-pp311-pypy311_pp73-musllinux_1_1_x86_64.whl",hashes = {sha256 = "b6acfb46a814762367fb7ba0828b0a17d441b92ce249a0e007474c9072662dda"}},
     {name = "pydantic_core-2.46.5-pp311-pypy311_pp73-win_amd64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/db/1d/068464f23075f66a8f1b806935e9cd9363ee446636ea70d2c22ee8659dbf/pydantic_core-2.46.5-pp311-pypy311_pp73-win_amd64.whl",hashes = {sha256 = "d0a24b40877af2de4950252be9d21eaf7fb07660f3c2cae1f56c6b599ada5266"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-macosx_10_12_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/74/6b/8f79692844269427abb3e4dd9e68edfcbe65ae25527d99183214de716c59/pydantic_core-2.46.5-cp310-cp310-macosx_10_12_x86_64.whl",hashes = {sha256 = "657b40d6240c0a7b6a64b30f22d1e3aa631c7e846c621b0c0f6d1d75e2e15ea6"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-macosx_11_0_arm64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/bd/d0/c787604c71c2bdcda1a5656942fc822cd0f9cd879b9484bb84fc42172703/pydantic_core-2.46.5-cp310-cp310-macosx_11_0_arm64.whl",hashes = {sha256 = "ecb42011e12ee19cafbc312887cbf3546959fe02fbad44f272d4be5baa997615"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/4a/77/ca2f8e997d9bfdb32205297aff38f210f398822d895b1af1b59fd9df9c13/pydantic_core-2.46.5-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",hashes = {sha256 = "4dedce55295becb61921e386b99d4f2706045306e7fa52249a33004c837379fb"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-manylinux_2_17_armv7l.manylinux2014_armv7l.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/a0/53/bd12e1a9255df4edee00353778e2614b5346265d51e1567ab72153e803a2/pydantic_core-2.46.5-cp310-cp310-manylinux_2_17_armv7l.manylinux2014_armv7l.whl",hashes = {sha256 = "9f47b8a949e60f027f0aa0a6f6c7b7e9c55cbf4380d10b344e282fa4e7ab1e1b"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/d7/41/f7f312751ebc6d6767da91964a9c7954c18e226a1720ab234e3dfb9d6c17/pydantic_core-2.46.5-cp310-cp310-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl",hashes = {sha256 = "200aa3dc9f8d54f0754f43247c0bad0999fdcfbfd2488384dd44f37279271fe6"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-manylinux_2_17_s390x.manylinux2014_s390x.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/3d/93/ce93aa030ab6bac4683ba8861e7baad89dd24b02e66b8801a0e4f6a00311/pydantic_core-2.46.5-cp310-cp310-manylinux_2_17_s390x.manylinux2014_s390x.whl",hashes = {sha256 = "6d30e1a4f138b8951063e9a394752a9179b51da288ffa507b1e659222f4c1793"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/34/a1/c8e6b66f499f510752c07a092dfe27621f9c255635e59d38704b5681c35a/pydantic_core-2.46.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",hashes = {sha256 = "850a08d167dde16db8702c274f320c7be9d7da6f6dff2b58b18f9e815bd94f5b"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-manylinux_2_31_riscv64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/5c/fa/605e2b127ee30dbf4b1da9da4843587cf2b2d16486c241cc7a5be2d2c1bd/pydantic_core-2.46.5-cp310-cp310-manylinux_2_31_riscv64.whl",hashes = {sha256 = "c3471e5c4a949c26ec00a77f01df59096aa9495877de76fd60a980f8ee6be461"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/4a/f7/1ab28093c09032ddce7c92c7a55d503b6ecd70f42c32492946c1cb5477b1/pydantic_core-2.46.5-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.whl",hashes = {sha256 = "3a3e26b6a8274211bddee2d0e4d0d42778f17a34510f49d2ec44b58abfc41736"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-musllinux_1_1_aarch64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/30/c8/47c79b756f12f85e8b0fbdb2b495f6b6eb32e6c98a4beae7a570a0b7c63c/pydantic_core-2.46.5-cp310-cp310-musllinux_1_1_aarch64.whl",hashes = {sha256 = "fc5d783bd4a2387e97b8a2d5ec781cfb92b3d893bf82370548e99db5915935d3"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-musllinux_1_1_armv7l.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/13/5c/79fc00cb8f651d6061991de8d7cedf1c78c73cbd4862c42ef418f03b8bfa/pydantic_core-2.46.5-cp310-cp310-musllinux_1_1_armv7l.whl",hashes = {sha256 = "356c8368cbc321050b169595683a2e1d63413b1e0e2868b330af9fc14c616d3f"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-musllinux_1_1_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/b4/72/dd1a29853cf6d22a1ebd9e3baf0239cbc57d2d16caff36a89e38eb9b1db3/pydantic_core-2.46.5-cp310-cp310-musllinux_1_1_x86_64.whl",hashes = {sha256 = "eb7d8d0e5886a89a55d2eef490e272fa965a9d57c6b29a5b5088a7997ec2cad1"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-win32.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/ec/d1/ba4a8e06a9ddad0b4caf69cfaeecc0fbfcec20473bd808f5127fd16491c4/pydantic_core-2.46.5-cp310-cp310-win32.whl",hashes = {sha256 = "4d44cf99ddebf875f9b68cc267aa684c99b7b44fe63ee1cac4ec163807290069"}},
-    {name = "pydantic_core-2.46.5-cp310-cp310-win_amd64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/f2/94/205ed9d7ddaf44acd489889708ea124a3f41bdb42c141c8684d528ad0e7a/pydantic_core-2.46.5-cp310-cp310-win_amd64.whl",hashes = {sha256 = "1e5aad1220a1192c42341c8fd4a8686657e73ab2a920c970bdc4de334fe3193d"}},
 ]
 
 [packages.tool.pdm]
@@ -342,64 +313,6 @@ wheels = [
 dependencies = []
 
 [[packages]]
-name = "tomli"
-version = "2.5.0"
-requires-python = ">=3.8"
-sdist = {name = "tomli-2.5.0.tar.gz", url = "https://mirror.nju.edu.cn/pypi/web/packages/b0/78/9ad63712633ed3ab5cc1a648d863d7e7da371e9425e209555a0fe711b695/tomli-2.5.0.tar.gz", hashes = {sha256 = "264507556cd8b8c8e7c6ee037cdf443a463f03f4c958e57195e3d369711b8ff6"}}
-wheels = [
-    {name = "tomli-2.5.0-cp314-cp314-macosx_10_15_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/e4/49/caf6b307766eb9567664a8707e9d6be5fcc0e8903f18781c6677a60d80c7/tomli-2.5.0-cp314-cp314-macosx_10_15_x86_64.whl",hashes = {sha256 = "d3182ee2d887e507bd67319a0a61105d1dd33facc111329559a233b772c1a105"}},
-    {name = "tomli-2.5.0-cp314-cp314-macosx_11_0_arm64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/d3/c8/68cfce773a2733a49c74f99d627fb461bd990756860099eac25617889585/tomli-2.5.0-cp314-cp314-macosx_11_0_arm64.whl",hashes = {sha256 = "521345fd1f19d45b8df87657aaa38b6f2ca3800059fadf428e7ebf479a383646"}},
-    {name = "tomli-2.5.0-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/7e/b2/e5bb8651fdad593f670501a7d718b1a7f73f064d44dea15e04c04dfef45d/tomli-2.5.0-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",hashes = {sha256 = "6e95c7614e705bfe2b04b27aa124adec59752d15813df37e2156747cab3a006b"}},
-    {name = "tomli-2.5.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/8d/d2/9e2d7f8b1dfe0e2b34c245986ebd55c4c553ea4ce6c47c443b332673253f/tomli-2.5.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",hashes = {sha256 = "7ac2027d37c3afbdf4bdd377f2676f6f1d2122a5be1f1137b49dced590b37e75"}},
-    {name = "tomli-2.5.0-cp314-cp314-musllinux_1_2_aarch64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/ba/df/ec7b876b7b1a2718bd74a3743c076fff565b04029ba33e8f61fac262739f/tomli-2.5.0-cp314-cp314-musllinux_1_2_aarch64.whl",hashes = {sha256 = "c414be4ed9d3cac80c42e348fa5a956117d1a48227f48026e31f59cb4a7671eb"}},
-    {name = "tomli-2.5.0-cp314-cp314-musllinux_1_2_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/7d/7b/e192d9eed0b9cb80da799f4d77052297fb9a2c3cc9b19f571f56ea88add6/tomli-2.5.0-cp314-cp314-musllinux_1_2_x86_64.whl",hashes = {sha256 = "9b03d7dc168353b4132965bde20feceabaa470e570c6f59660dfae59b1f9eeb3"}},
-    {name = "tomli-2.5.0-cp314-cp314-win32.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/84/50/ff94454e75461d75623e47401ed323d65c10aab8fe9033242c20cd2fdf32/tomli-2.5.0-cp314-cp314-win32.whl",hashes = {sha256 = "6f041843c4d3a37245c0c056fd955b186bf8b1fb85690cbe40b81230891dc34b"}},
-    {name = "tomli-2.5.0-cp314-cp314-win_amd64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/54/0b/bdacf05f963bd6026ebf6eeb0beda847d1d60e03e440725c64a4e08a0afd/tomli-2.5.0-cp314-cp314-win_amd64.whl",hashes = {sha256 = "f4b653094e18f9031102d3a1da5c729c8f222d85225b18037dac621695e46e1a"}},
-    {name = "tomli-2.5.0-cp314-cp314-win_arm64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/61/99/53f438fa6ae4f9d4ed0ddde3e7242b3bdc34b48c8f9948b72b9e9b127676/tomli-2.5.0-cp314-cp314-win_arm64.whl",hashes = {sha256 = "3f89d10c1ff6a38d992c27fc8a4816af71a909e08a40ec66934240b1e74347c3"}},
-    {name = "tomli-2.5.0-cp314-cp314t-macosx_10_15_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/b9/20/1f88f19427d380a40e90a770e087489eaafe4aeee070ae88ed2bbec00acd/tomli-2.5.0-cp314-cp314t-macosx_10_15_x86_64.whl",hashes = {sha256 = "e9e15b4a6c7dd6b85b5fbab29488a73f1f70de516942308daa266bf0e0aeb0d4"}},
-    {name = "tomli-2.5.0-cp314-cp314t-macosx_11_0_arm64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/d0/56/cbe5079c9f9a54b9b3e27fc82f08f3cb36edee75561679f53d2380c801d6/tomli-2.5.0-cp314-cp314t-macosx_11_0_arm64.whl",hashes = {sha256 = "e12bbcd32897272fb05929110362ae9ff4c1b9bb26bd9e971e71dcd3275b4c3d"}},
-    {name = "tomli-2.5.0-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/2b/30/1d53fd3b0f1cb3ba542e345ec32c26aefdddc4e829e4f3429af8a4f27782/tomli-2.5.0-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",hashes = {sha256 = "20aa36de8f2cf87237143bc1fa1aae8d6612c09118f4da21c6a684db5dd1f6f9"}},
-    {name = "tomli-2.5.0-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/66/d9/0800acb6a111686f764c1b91ef15cc42a20a66a46013bb42220f1d2c61c1/tomli-2.5.0-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",hashes = {sha256 = "22185fad8a1e622f064e78008018a0dd3323550dcb479cb7a1d296888d74024f"}},
-    {name = "tomli-2.5.0-cp314-cp314t-musllinux_1_2_aarch64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/e8/63/30a8f3cd51b5bec37f04744bad0b0dc6160df84aad4f27b0e9283d66f221/tomli-2.5.0-cp314-cp314t-musllinux_1_2_aarch64.whl",hashes = {sha256 = "984012f71908165449a951de2050d52f276bfe3aa5d5f570f63ddad814370374"}},
-    {name = "tomli-2.5.0-cp314-cp314t-musllinux_1_2_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/ab/18/0b9ffc597e69c5a1e20a7823cb60d54b39a9f54e91edcb8574f022186758/tomli-2.5.0-cp314-cp314t-musllinux_1_2_x86_64.whl",hashes = {sha256 = "f79203b3965b4000e91808aaa7c040206093f2b8bf86f455982f2274c9ccf442"}},
-    {name = "tomli-2.5.0-cp314-cp314t-win32.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/ab/c7/18f8baae0b5607a60e8e19b4a7fedee43a8ff6458e3896dcbbadeeac9c22/tomli-2.5.0-cp314-cp314t-win32.whl",hashes = {sha256 = "91294a9fb94a75542f6e46e4a2ae709bd8d9b51134098cae5cf3bea5478b6d03"}},
-    {name = "tomli-2.5.0-cp314-cp314t-win_amd64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/72/34/4cca9739254130627bde87500b3f2b512154fe2f278efa7e2a5e10ad4bcb/tomli-2.5.0-cp314-cp314t-win_amd64.whl",hashes = {sha256 = "f15e3e0b835a6d68b10c86bf80a3149780498d6911c93c3ffd1861d19f9200f1"}},
-    {name = "tomli-2.5.0-cp314-cp314t-win_arm64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/7d/fb/afa530d47dd80a78fce43beac6bc6e00f84558eafcffbc6f37b21e80d056/tomli-2.5.0-cp314-cp314t-win_arm64.whl",hashes = {sha256 = "6664b7ae7af7294256c53960a6103077f4914cec8ff98479c352f622c6f6b2f0"}},
-    {name = "tomli-2.5.0-cp313-cp313-macosx_10_13_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/42/e5/51736d70da209350969e15aca5c5ab6e2ce1ea87a0a892a6c13aec172a86/tomli-2.5.0-cp313-cp313-macosx_10_13_x86_64.whl",hashes = {sha256 = "943276cf269e0071948d9ff697159c1735e623c1151d88abb09b74659ef0cbea"}},
-    {name = "tomli-2.5.0-cp313-cp313-macosx_11_0_arm64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/ec/55/086f80dab4ab497602644274e6dea7ec5dd0b4e262e443a8ad3bb7edee2d/tomli-2.5.0-cp313-cp313-macosx_11_0_arm64.whl",hashes = {sha256 = "463b16086865b97facd8d0b3fb4cb7c544e3f58d2a69dc3113d6db9653fdb043"}},
-    {name = "tomli-2.5.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/aa/eb/3ecc94459f3635c92321f4e7bde571323fdb2267c50e19e3188a281eae3b/tomli-2.5.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",hashes = {sha256 = "1245a6638fc4bb0a60af38a7d45413db34a13842027c77597c712c998c62fdf0"}},
-    {name = "tomli-2.5.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/c0/d7/494fd1f0c37a621f1ad9975c2efadb523e8101f144ed6edb2e7fe64738f2/tomli-2.5.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",hashes = {sha256 = "5d8bac3d603c97e6854424e5b2b5b741bdbde387e09f162fb0446812b4a8362b"}},
-    {name = "tomli-2.5.0-cp313-cp313-musllinux_1_2_aarch64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/70/51/bb8d62b1317e6640866f6949b2d5855e5300f2c99d46de1cd245570bba65/tomli-2.5.0-cp313-cp313-musllinux_1_2_aarch64.whl",hashes = {sha256 = "21e4cae4114aba25aa0d4f85cdf486d290fb35c0954d7bba536248da64d43066"}},
-    {name = "tomli-2.5.0-cp313-cp313-musllinux_1_2_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/66/f4/f46bd7f0763cd47de2db697dca9257c6a4adfd1a93b018cc75c8190ed5a8/tomli-2.5.0-cp313-cp313-musllinux_1_2_x86_64.whl",hashes = {sha256 = "bbaefc84548d754be821bba7c4141c4787dda182f9e77f2f87b71213529efa7b"}},
-    {name = "tomli-2.5.0-cp313-cp313-win32.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/ac/03/70f2bcb2923a6db37818d917e124270a7f4cfd38ea576f5aa753a91c0ef5/tomli-2.5.0-cp313-cp313-win32.whl",hashes = {sha256 = "abdbf6313b8d9efe157edeb7ab6eae4de064b1300ad31abf73755154b30abe68"}},
-    {name = "tomli-2.5.0-cp313-cp313-win_amd64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/dc/98/d52024bb5b0ff68b4f0d276d867f634c84a67319a7e9f6b7708a37742333/tomli-2.5.0-cp313-cp313-win_amd64.whl",hashes = {sha256 = "fd4dc129784e0c5335bd4e61dfcc4487499a013419e655cf2da1d091b7e0efdc"}},
-    {name = "tomli-2.5.0-cp313-cp313-win_arm64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/6f/f2/540db3a70572a8c23a28aba3e9c358ce0ffffbafc990905c1343aa265b31/tomli-2.5.0-cp313-cp313-win_arm64.whl",hashes = {sha256 = "69491c143d2fe063046e0301e62a810bed338fa4d1ce0fd870c27dc1e09b0d84"}},
-    {name = "tomli-2.5.0-cp312-cp312-macosx_10_13_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/52/ed/7baa86f87493646a594de388c7c1c40a39dd0461f7e9c0359cbeefc91fe8/tomli-2.5.0-cp312-cp312-macosx_10_13_x86_64.whl",hashes = {sha256 = "1f4a40d03fb9f63424f0979855bdeaf44dd7696b8d59501822c10ed30ba532df"}},
-    {name = "tomli-2.5.0-cp312-cp312-macosx_11_0_arm64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/a5/b1/44c0341f2224397855723c7a8a39f718ea6fcbcc3dacc66e5aeca0f334e3/tomli-2.5.0-cp312-cp312-macosx_11_0_arm64.whl",hashes = {sha256 = "9ebf8d19b17bd0daeb7b7dec81a946a439b753942fd0210d6e96c532249eea6b"}},
-    {name = "tomli-2.5.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/23/04/e2d5b7d3fba47adedb23de616c16d428ea076c79a3d8e1d95d649ffe197e/tomli-2.5.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",hashes = {sha256 = "bf0b5e8e0f68ebb494356e577c06c139161efd8d3b9050f93b39b7c26cc54ff0"}},
-    {name = "tomli-2.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/43/90/6090e706ff27a6f89f4a40578e3324b95c3cd8c4150868aabf33a8f414c3/tomli-2.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",hashes = {sha256 = "6cf74416bdc94ae458b14e37286c1073081850ac8459a00d0c5efef5d44294c6"}},
-    {name = "tomli-2.5.0-cp312-cp312-musllinux_1_2_aarch64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/0a/9e/a2c40768df16c408f22430afb0a73e9d7e5f79c950884954649d1146b74d/tomli-2.5.0-cp312-cp312-musllinux_1_2_aarch64.whl",hashes = {sha256 = "61ea1ebe1e55a34ea8199cc8dbff398d35027b82271c8ac4802fd3a1fd5b1bcc"}},
-    {name = "tomli-2.5.0-cp312-cp312-musllinux_1_2_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/12/25/3c0cb485b98e9cfac495629b1c93c87ccf0b72fbe9d2689fd8fe62c6d5a3/tomli-2.5.0-cp312-cp312-musllinux_1_2_x86_64.whl",hashes = {sha256 = "ed53f7e89bb04f6d9e8e7799112360b0c4d5cbff067de0814c98c37c39b920f7"}},
-    {name = "tomli-2.5.0-cp312-cp312-win32.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/77/8b/0144c65f0e37e51c18d04ae15c21b19431c165002d0131fe9aa8b0b8b1e8/tomli-2.5.0-cp312-cp312-win32.whl",hashes = {sha256 = "e7ad033e27a516a233bea839cdb77b80146facb3b4f40bf02cd0cac165cdd5c2"}},
-    {name = "tomli-2.5.0-cp312-cp312-win_amd64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/de/32/5d6d8f42fc9a05fce69354e00ff256484192f5f2fc9a2165718fa0de61ec/tomli-2.5.0-cp312-cp312-win_amd64.whl",hashes = {sha256 = "bd05de8c1698f8413dd7d869492693a0bf2211543b787ac78cd5e7536af1a6d7"}},
-    {name = "tomli-2.5.0-cp312-cp312-win_arm64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/30/65/df18032218db0fb9b769fb23c8039a051f15c811993995ea04c350273a32/tomli-2.5.0-cp312-cp312-win_arm64.whl",hashes = {sha256 = "069435bd5480429b98c5e5afb02ab21c219b6f0064680671c6dc0d46817346ea"}},
-    {name = "tomli-2.5.0-cp311-cp311-macosx_10_9_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/22/a6/ab99b60ee52acd949684febabc3005d0045d0f66bebd9cdebd67372d26dd/tomli-2.5.0-cp311-cp311-macosx_10_9_x86_64.whl",hashes = {sha256 = "c4dc1c1781f2f716de763d1e9a7b34c6a894e167e291c7c5d16c72f7a9538545"}},
-    {name = "tomli-2.5.0-cp311-cp311-macosx_11_0_arm64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/bc/00/ee01b7ed4579180fff07142d290257f25ba786f23f3ec6005f620933c2f5/tomli-2.5.0-cp311-cp311-macosx_11_0_arm64.whl",hashes = {sha256 = "eff8babca5a7999bc137acbc7482a8b7e17ffca5075ab41f5d770ab408c7bfef"}},
-    {name = "tomli-2.5.0-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/72/c2/4efebf65372f6583185f79799312109dddb61102d47e5c33dcfd1a297aca/tomli-2.5.0-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",hashes = {sha256 = "86665cee9c4835b7a7f1e8ec2c719b5258d4dc782887aded5a8ae7352a96843b"}},
-    {name = "tomli-2.5.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/53/07/5850468e925d898abb36038666f9c333a94d2a223e802a8ba5b6d319d23f/tomli-2.5.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",hashes = {sha256 = "d7e369fd63331746182360977b1892bfc215476a30d61612d732425311639f56"}},
-    {name = "tomli-2.5.0-cp311-cp311-musllinux_1_2_aarch64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/b4/87/f293984cdcf83c054196d4fd3dad44fc68ae55b4b8c44bc76cef360c3150/tomli-2.5.0-cp311-cp311-musllinux_1_2_aarch64.whl",hashes = {sha256 = "7ad1ea345759240d6463efa0ed1c704402752e49aa21476620738d74d72d8aa1"}},
-    {name = "tomli-2.5.0-cp311-cp311-musllinux_1_2_x86_64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/ce/ce/db582886b3c1219d3fec93ebd669332482e5aee7a91e0f7838d84f2d1759/tomli-2.5.0-cp311-cp311-musllinux_1_2_x86_64.whl",hashes = {sha256 = "96243987194634bd411066ce40c952e108f86af04db533ecd8ac3ff2a85b1885"}},
-    {name = "tomli-2.5.0-cp311-cp311-win32.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/bf/72/7619b87dea4261fc27dd7b54c4461c129c1f7d9bb7ba3aec89c797a431b8/tomli-2.5.0-cp311-cp311-win32.whl",hashes = {sha256 = "610b27d99f28ec5f191c7064a48f3ddb179a1fe6ca73d571483ae859f57b605e"}},
-    {name = "tomli-2.5.0-cp311-cp311-win_amd64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/1e/74/220106da34502304b6751a2a9b8a9fbca6c3fd47e737a2e2e3da7c61c9db/tomli-2.5.0-cp311-cp311-win_amd64.whl",hashes = {sha256 = "c804ae44fe7b4bab5da295e4f980a1ff04670bca9d23fe0a4e887e08ebd741a8"}},
-    {name = "tomli-2.5.0-cp311-cp311-win_arm64.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/27/99/7d9c8b41837a7773613e169504147375c157a290167aa59ad74a085f521f/tomli-2.5.0-cp311-cp311-win_arm64.whl",hashes = {sha256 = "cfac177ebd6236003846ea339981f71457cb6eb748f23381eb257e45092e3980"}},
-    {name = "tomli-2.5.0-py3-none-any.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/60/3f/3e3f8fd0919249b0200c80fbc4f9a1e70be19f9883da71dfb7f8b9ab8aca/tomli-2.5.0-py3-none-any.whl",hashes = {sha256 = "32a7b79ac57a2e83670ce329ccf675798bc5a2094783a63676866b70503f2e2b"}},
-]
-marker = "python_version < \"3.11\""
-
-[packages.tool.pdm]
-dependencies = []
-
-[[packages]]
 name = "truststore"
 version = "0.10.4"
 requires-python = ">=3.10"
@@ -439,7 +352,7 @@ dependencies = [
 ]
 
 [tool.pdm]
-hashes = {sha256 = "2650e0fbab0f9f16808ad5087b5dd87b93cd19ff147b0044d61d332ad22010a6"}
+hashes = {sha256 = "17a5ce102f1bb0e5f96921032d74a29690004aa034d4b97517d0f764829f4a6a"}
 
 [[tool.pdm.targets]]
-requires_python = ">=3.10,<3.15"
+requires_python = ">=3.11,<3.16"

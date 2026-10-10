@@ -5,7 +5,7 @@ authors = [
     { name = "Zeyang Lin", email = "4020306+linzeyang@users.noreply.github.com" },
 ]
 dependencies = ["httpx2>=2.13,<3", "python-dotenv>=1.2,<2", "pydantic>=2.13,<3"]
-requires-python = ">=3.10,<3.15"
+requires-python = ">=3.11,<3.16"
 readme = "README.md"
 license = { text = "MIT" }
 keywords = ["web", "ai", "api", "llm", "nlp", "minimax"]
@@ -19,11 +19,11 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Internet :: WWW/HTTP",
     "Typing :: Typed",
@@ -48,7 +48,7 @@ distribution = true
 
 [tool.black]
 line-length = 88
-target-version = ['py312']
+target-version = ['py311']
 
 [tool.coverage.run]
 branch = true
@@ -58,7 +58,7 @@ source = ["./"]
 omit = ["test_*.py", "conftest.py"]
 
 [tool.isort]
-py_version = 312
+py_version = 311
 profile = "black"
 
 [tool.pylint.format]
@@ -73,7 +73,7 @@ console_output_style = "count"
 [tool.ruff]
 src = ["src"]
 line-length = 88
-target-version = "py312"
+target-version = "py311"
 output-format = "full"
 
 [tool.ruff.lint]
@@ -84,7 +84,7 @@ ignore = []
 "__init__.py" = ["F401"]
 
 [tool.ty.environment]
-python-version = "3.12"
+python-version = "3.11"
 root = ["./src"]
 
 [tool.ty.rules]
