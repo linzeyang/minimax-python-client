@@ -4,7 +4,7 @@ description = "An (unofficial) python native client for easy interaction with Mi
 authors = [
     { name = "Zeyang Lin", email = "4020306+linzeyang@users.noreply.github.com" },
 ]
-dependencies = ["httpx2>=2.12,<3", "python-dotenv>=1.2,<2", "pydantic>=2.13,<3"]
+dependencies = ["httpx2>=2.13,<3", "python-dotenv>=1.2,<2", "pydantic>=2.13,<3"]
 requires-python = ">=3.10,<3.15"
 readme = "README.md"
 license = { text = "MIT" }

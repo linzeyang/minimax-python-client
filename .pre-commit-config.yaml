@@ -17,22 +17,22 @@ repos:
       - id: requirements-txt-fixer
       - id: trailing-whitespace
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.21.2
+    rev: v3.22.0
     hooks:
       - id: pyupgrade
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.7
+    rev: v0.17.0
     hooks:
       - id: ruff-check
         args: ["--fix", "--config=./pyproject.toml"]
       - id: ruff-format
         args: ["--config=./pyproject.toml"]
   - repo: https://github.com/psf/black
-    rev: 26.5.1
+    rev: "26.10.1"
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/isort
-    rev: 9.0.1
+    rev: "9.0.2"
     hooks:
       - id: isort
   - repo: https://github.com/pdm-project/pdm
@@ -47,7 +47,7 @@ repos:
       - id: markdownlint-fix
         args: ["--disable", "MD013"]
   - repo: https://github.com/jackdewinter/pymarkdown
-    rev: v0.9.39
+    rev: v0.9.40
     hooks:
       - id: pymarkdown
         args: ["-d", "MD013,MD041", "scan"]
