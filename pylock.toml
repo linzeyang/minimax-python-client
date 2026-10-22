@@ -61,11 +61,11 @@ dependencies = []
 
 [[packages]]
 name = "httpcore2"
-version = "2.15.1"
+version = "2.16.0"
 requires-python = ">=3.11"
-sdist = {name = "httpcore2-2.15.1.tar.gz", url = "https://mirror.nju.edu.cn/pypi/web/packages/c2/a9/11bc39967bb9dfaab0981ab4d49f519818acbee662a7e76d06813319c838/httpcore2-2.15.1.tar.gz", hashes = {sha256 = "a94b6b3e6260e1a3f035915408d3dcd7dc8e844c2b544b642e227cf98a747af0"}}
+sdist = {name = "httpcore2-2.16.0.tar.gz", url = "https://mirror.nju.edu.cn/pypi/web/packages/c0/61/afa9d6b7452f9eca73f73d45324eb0bb52f098fd5e6049bf6b8263be9b4e/httpcore2-2.16.0.tar.gz", hashes = {sha256 = "c72cd0413563b17e1cd8354677dff887466f8ec2551679759e93126534428643"}}
 wheels = [
-    {name = "httpcore2-2.15.1-py3-none-any.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/0d/9b/e2b556e26fbc67716ab1dfc18832eb6fe196d88363f7094cb1da3d7c0d3e/httpcore2-2.15.1-py3-none-any.whl",hashes = {sha256 = "730f603058c260a3288378217b464713350c23e3b8fe8bba753701054032d98a"}},
+    {name = "httpcore2-2.16.0-py3-none-any.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/af/c2/ce417c397afa5181f0e3c6ff01a4d01639414e1adef08730d97571297151/httpcore2-2.16.0-py3-none-any.whl",hashes = {sha256 = "5c4358319f2602d984ad93182c9fee5160f22e9da7babdda870a5e7c4e2dc34f"}},
 ]
 marker = "sys_platform != \"emscripten\""
 
@@ -77,17 +77,17 @@ dependencies = [
 
 [[packages]]
 name = "httpx2"
-version = "2.15.1"
+version = "2.16.0"
 requires-python = ">=3.11"
-sdist = {name = "httpx2-2.15.1.tar.gz", url = "https://mirror.nju.edu.cn/pypi/web/packages/7f/85/07978f4afd168d6b408fa75c1dc13e3010653a81e182aa1b6d89ab94d9c6/httpx2-2.15.1.tar.gz", hashes = {sha256 = "ff75485308fbe441e75b1218546e4e78d884df41e1a9741c1f79335ed8fcfef7"}}
+sdist = {name = "httpx2-2.16.0.tar.gz", url = "https://mirror.nju.edu.cn/pypi/web/packages/43/73/5ca2cedf5e4e50423d1c258877865a6b62793633b561c58499f8aeb33b7e/httpx2-2.16.0.tar.gz", hashes = {sha256 = "0d54c98128e8f2ff7fbbde0fca8c359e5f032edeaaaac443cdb7f31f685bcd7f"}}
 wheels = [
-    {name = "httpx2-2.15.1-py3-none-any.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/7a/bf/56068f774620330c8330e4b4915fae889a5b2d4b52667b3b7c8f66c4a9ad/httpx2-2.15.1-py3-none-any.whl",hashes = {sha256 = "75841cd83d16b417f7d6da8f2089ce8120806efdbf96af37d46c5129c49015be"}},
+    {name = "httpx2-2.16.0-py3-none-any.whl",url = "https://mirror.nju.edu.cn/pypi/web/packages/7b/3d/2e4bc4fd1ef9770871669adb348d612a6e4786b303a23f9935b81c48dd60/httpx2-2.16.0-py3-none-any.whl",hashes = {sha256 = "fd2c5d7909e8d86fe92d53020c310ca0e4e431b838c207c5754b9bbf0308d49a"}},
 ]
 
 [packages.tool.pdm]
 dependencies = [
     "anyio>=4.10; sys_platform != \"emscripten\"",
-    "httpcore2==2.15.1; sys_platform != \"emscripten\"",
+    "httpcore2==2.16.0; sys_platform != \"emscripten\"",
     "httpx2-jsfetch; sys_platform == \"emscripten\" and python_version >= \"3.12\"",
     "idna>=3.18",
     "truststore>=0.10; sys_platform != \"emscripten\"",
@@ -383,7 +383,7 @@ dependencies = [
 ]
 
 [tool.pdm]
-hashes = {sha256 = "5391d21f8b3f755e62c5e24ccc2126a5d8e8723793d486bc70df9fdc21748544"}
+hashes = {sha256 = "4c65a9287e389ed09087c376a52b61fc6e35ac828ac666b50403bf2b197ad0dd"}
 
 [[tool.pdm.targets]]
 requires_python = ">=3.11,<3.16"
